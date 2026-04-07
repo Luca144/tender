@@ -251,15 +251,15 @@
             <h1>ReqPOOL Ausschreibungs-Scout</h1>
             <div class="subtitle">Energie &amp; IT</div>
         </div>
-        <div class="updated">Aktualisiert: 07.04.2026 16:09 Uhr</div>
+        <div class="updated">Aktualisiert: 07.04.2026 16:29 Uhr</div>
     </header>
 
     <div class="stats">
         <div class="stat-item">
-            Gesamt <strong>0</strong> Ausschreibungen
+            Gesamt <strong>50</strong> Ausschreibungen
         </div>
         <div class="stat-item stat-new">
-            <strong>0</strong> neu heute
+            <strong>50</strong> neu heute
         </div>
     </div>
 
@@ -267,13 +267,827 @@
         <label>Quellen:</label>
         <button class="filter-btn active" data-source="all" onclick="filterSource('all')">Alle</button>
         
+        <button class="filter-btn" data-source="TED Europa" onclick="filterSource('TED Europa')">TED Europa</button>
+        
     </div>
 
     <div class="table-wrapper">
         
-        <div class="empty-state">
-            <p>Keine Ausschreibungen gefunden.</p>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Quelle</th>
+                    <th>Titel</th>
+                    <th class="hide-mobile">Auftraggeber</th>
+                    <th>Veröffentlicht</th>
+                    <th class="hide-mobile">Frist</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/234126-2026" target="_blank" rel="noopener">Deutschland – Beratung im Bereich Unternehmensanalyse – Stellenbewertung | IST-Analyse, Soll-Konzeption und Durchführung</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Hamburger Energienetze GmbH</td>
+                    <td>2026-04-07</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/234126-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/230690-2026" target="_blank" rel="noopener">Deutschland – Softwarepaket und Informationssysteme – Lieferung modularer Datencenter (MDC) und Unterstützungsleistungen 50Hertz</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">50Hertz Transmission GmbH</td>
+                    <td>2026-04-03</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/230690-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/233041-2026" target="_blank" rel="noopener">Deutschland – Unternehmens- und Managementberatung – Beratungsleistungen strategische Beschaffung</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Dortmunder Netz GmbH</td>
+                    <td>2026-04-03</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/233041-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/229023-2026" target="_blank" rel="noopener">Deutschland – Dienstleistungen in Verbindung mit Software – Self Service Data and Analytics Tool as a SaaS Solution</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">EnBW Energie Baden-Württemberg AG</td>
+                    <td>2026-04-02</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/229023-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/229450-2026" target="_blank" rel="noopener">Deutschland – Systemdienstleistungen und Unterstützungsdienste – Energiewirtschaftliches Abrechnungssystem</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Stadtwerke Dinslaken GmbH</td>
+                    <td>2026-04-02</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/229450-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/230123-2026" target="_blank" rel="noopener">Deutschland – Softwareprogrammierung und -beratung – Betrieb des Batchmanagements mit BMC Control-M</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">N-ERGIE Aktiengesellschaft</td>
+                    <td>2026-04-02</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/230123-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/226736-2026" target="_blank" rel="noopener">Deutschland – Softwareprogrammierung und -beratung – Entwicklungsunterstützung Datenplattform/ KI-Entwicklung &amp; Machine Learning Services</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">N-ERGIE Aktiengesellschaft</td>
+                    <td>2026-04-02</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/226736-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/229074-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – Transformation IS-U zu S4HANA Utilities</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Stadtwerke Augsburg Holding GmbH Methoden- und Projekteinkauf</td>
+                    <td>2026-04-02</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/229074-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/224297-2026" target="_blank" rel="noopener">Deutschland – Dienste in Verbindung mit Netzwerkverwaltungssoftware – Rahmenvereinbarung über Lieferung, Lizenzierung und Wartung von hochverfügbaren, GPU-unterstützten, hyperkonvergenten IT-Infrastruktur auf Basis von HPE-Technologien einschließlich Hersteller-Support</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Oldenburgisch-Ostfriesischer Wasserverband</td>
+                    <td>2026-04-01</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/224297-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/224143-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – modulspezifische Implementierung von SAP S/4HANA - Los 2 Instandhaltung</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Hamburger Hochbahn AG</td>
+                    <td>2026-04-01</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/224143-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/225826-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – modulspezifische Implementierung von SAP S/4HANA - Los 1 Kaufmännisch FI/CO</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Hamburger Hochbahn AG</td>
+                    <td>2026-04-01</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/225826-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/223036-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – modulspezifische Implementierung von SAP S/4HANA - Los 4 Immobilienmanagement</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Hamburger Hochbahn AG</td>
+                    <td>2026-04-01</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/223036-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/224298-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – modulspezifische Implementierung von SAP S/4HANA - Los 5 Financial Services</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Hamburger Hochbahn AG</td>
+                    <td>2026-04-01</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/224298-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/225196-2026" target="_blank" rel="noopener">Deutschland – Systemberatung und technische Beratung – InformationsSicherheitsprogramm für die BVG</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Berliner Verkehrsbetriebe, Bereich Einkauf/Materialwirtschaft</td>
+                    <td>2026-04-01</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/225196-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/223545-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – Betriebsleistungen für die Azure-Umgebung der Hamburger Hochbahn AG</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Hamburger Hochbahn AG</td>
+                    <td>2026-04-01</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/223545-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/221603-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – SV-KTR-260129-007, Managed Service für Software B2B by Practice</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">SWM Services GmbH</td>
+                    <td>2026-03-31</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/221603-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/221530-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – Cloud Migrationspartner</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">AIRSYS Airport Business Information Systems GmbH</td>
+                    <td>2026-03-31</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/221530-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/214899-2026" target="_blank" rel="noopener">Deutschland – Technische Planungsleistungen für maschinen- und elektrotechnische Gebäudeanlagen – BIM-Datenmanagement</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Hamburger Energienetze GmbH</td>
+                    <td>2026-03-30</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/214899-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/215487-2026" target="_blank" rel="noopener">Deutschland – Systemberatung – S4/HANA Transformation</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">BEW Berliner Energie und Wärme GmbH</td>
+                    <td>2026-03-30</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/215487-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/218459-2026" target="_blank" rel="noopener">Deutschland – Bereitstellung von Software – Software für Werkstatt 2026</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Software für Werkstatt 2026</td>
+                    <td>2026-03-30</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/218459-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/213811-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – EDT Consultancy Service</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">50Hertz Transmission GmbH</td>
+                    <td>2026-03-27</td>
+                    <td class="hide-mobile">2026-05-08</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/213811-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/212561-2026" target="_blank" rel="noopener">Deutschland – Softwareprogrammierung und -beratung – Entwicklungsunterstützung Datenplattform/ KI-Entwicklung &amp; Machine Learning Services</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">N-ERGIE Aktiengesellschaft</td>
+                    <td>2026-03-27</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/212561-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/208629-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – RV Betrieb &amp; Weiterentwicklung HAM Data</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">AIRSYS Airport Business Information Systems GmbH</td>
+                    <td>2026-03-26</td>
+                    <td class="hide-mobile">2026-04-15</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/208629-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/206803-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – Konzeption, Realisierung und Durchführung einer SAP IS-U zu SAP S/4HANA Utilities Transformation inklusive Ablösung SAP CRM 7.0 und Einführung SAP Customer Experience (CX) für einen Energievertrieb</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">FACTUR Billing Solutions GmbH, vertreten durch die E.V.A Energieversorgungs- und Verkehrsgesellschaft mbH Aachen</td>
+                    <td>2026-03-25</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/206803-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/206693-2026" target="_blank" rel="noopener">Deutschland – Dienste in Verbindung mit Netzwerkverwaltungssoftware – 2025-1004526_Flughafen München_ Servicevertrag DATA, Hardware- und Software-Fullservice für Netzwerk GFA T1</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Flughafen München GmbH</td>
+                    <td>2026-03-25</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/206693-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/206736-2026" target="_blank" rel="noopener">Deutschland – Unternehmens- und Managementberatung – Beratungsleistungen für erweiterte Bauphasenplanung</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">DB Netz AG (Bukr 16)</td>
+                    <td>2026-03-25</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/206736-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/200453-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – MVB4HANA: Umsetzung der SAP Transfomation</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Magdeburger Verkehrsbetriebe GmbH &amp; Co. KG</td>
+                    <td>2026-03-24</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/200453-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/202911-2026" target="_blank" rel="noopener">Deutschland – Dienstleistungen in Verbindung mit Software – Betrieb eines hybriden Security Operations Center (SOC)</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Berliner Verkehrsbetriebe, Bereich Einkauf/Materialwirtschaft</td>
+                    <td>2026-03-24</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/202911-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/200829-2026" target="_blank" rel="noopener">Deutschland – Dienstleistungen in Verbindung mit Software – Lieferung und Installation eines Automatischen Fahrgastzählsystems (AFZS) für Busse</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">REVG Rhein-Erft-Verkehrsgesellschaft mbH</td>
+                    <td>2026-03-24</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/200829-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/198778-2026" target="_blank" rel="noopener">Deutschland – Betriebliche Gesundheitsfürsorge – Konzeption, Vorbereitung, Durchführung und Evaluation von Achtsamkeitstrainings bei der Rheinbahn AG</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Rheinbahn AG</td>
+                    <td>2026-03-23</td>
+                    <td class="hide-mobile">2026-04-21</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/198778-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/199914-2026" target="_blank" rel="noopener">Deutschland – Entwicklung von Software für den Plattformenverbund – MSHIP Market Surveys for Platform Base and Platform Services</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">TransnetBW GmbH</td>
+                    <td>2026-03-23</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/199914-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/194399-2026" target="_blank" rel="noopener">Deutschland – Entwicklung von Software für den Plattformenverbund – MSHIP Market Surveys for Platform Base and Platform Services</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">TransnetBW GmbH</td>
+                    <td>2026-03-20</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/194399-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/194405-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – Erarbeitung von Lösungsszenarien für eine IT-Gesamtstrategie [aa]</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Hamburger Hochbahn AG</td>
+                    <td>2026-03-20</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/194405-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/192549-2026" target="_blank" rel="noopener">Deutschland – Softwareprogrammierung und -beratung – Beratungs- und Entwicklungsleistungen für das Hamburg Port Management System - HPMS</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Hamburg Port Authority AöR</td>
+                    <td>2026-03-19</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/192549-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/190154-2026" target="_blank" rel="noopener">Deutschland – Datenverarbeitungsgeräte (Hardware) – ClientService2026</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">EnBW Energie Baden-Württemberg AG</td>
+                    <td>2026-03-19</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/190154-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/192012-2026" target="_blank" rel="noopener">Deutschland – Dienstleistungen für Unternehmen: Recht, Marketing, Consulting, Einstellungen, Druck und Sicherheit – Social-Media-Agentur</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Hamburger Energiewerke GmbH</td>
+                    <td>2026-03-19</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/192012-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/188515-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – RV Betrieb &amp; Weiterentwicklung HAM Data</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">AIRSYS Airport Business Information Systems GmbH</td>
+                    <td>2026-03-18</td>
+                    <td class="hide-mobile">2026-04-15</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/188515-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/186368-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – RV IT-Beratung: Cloud Software &amp; Infrastruktur</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">EnBW Energie Baden-Württemberg AG</td>
+                    <td>2026-03-18</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/186368-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/186322-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – RV IT-Beratung: External Resources Contracing IT</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">EnBW Energie Baden-Württemberg AG</td>
+                    <td>2026-03-18</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/186322-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/186820-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – RV IT-Beratung: Daten &amp; Datenanalyse</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">EnBW Energie Baden-Württemberg AG</td>
+                    <td>2026-03-18</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/186820-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/179483-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – BSBG und BSVG - Nachfolge ERP- und HCM-System - Los 1: ERP-System</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Braunschweig Beteiligungen GmbH</td>
+                    <td>2026-03-16</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/179483-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/178830-2026" target="_blank" rel="noopener">Deutschland – Dienstleistungen für Unternehmen: Recht, Marketing, Consulting, Einstellungen, Druck und Sicherheit – Strategische Beratung</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Hamburger Energiewerke GmbH</td>
+                    <td>2026-03-16</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/178830-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/179209-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – Rahmenvereinbarung SAP-Optimierungs- und Supportleistungen</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">AKN Eisenbahn GmbH</td>
+                    <td>2026-03-16</td>
+                    <td class="hide-mobile">2026-04-15</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/179209-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/180191-2026" target="_blank" rel="noopener">Deutschland – Überwachungs- und Sicherheitssysteme und -einrichtungen – Beschaffung von automatischen Fahrgastzählsystemen und Videosystemen für Busse des ÖPNV</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Rhein-Sieg-Verkehrsgesellschaft mbH</td>
+                    <td>2026-03-16</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/180191-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/181767-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – BSBG und BSVG - Nachfolge ERP- und HCM-System - Los 2: HCM-System</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Braunschweig Beteiligungen GmbH</td>
+                    <td>2026-03-16</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/181767-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/175171-2026" target="_blank" rel="noopener">Deutschland – Informationstechnologiedienste – Einführung und Betrieb einer Dynamic Pricing Softwarelösung (DPS) in der Parkraumbewirtschaftung für den Flughafen Düsseldorf</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Flughafen Düsseldorf GmbH</td>
+                    <td>2026-03-13</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/175171-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/171284-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – Entwicklung Intelligent Dispatching Agent (IDA)</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Fraport AG</td>
+                    <td>2026-03-12</td>
+                    <td class="hide-mobile">2026-04-08</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/171284-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/173450-2026" target="_blank" rel="noopener">Deutschland – Softwarepaket für POS-Kassenterminals – &#34;Cashless Payment&#34; gemäß JTF-Projekt</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Personenverkehrsgesellschaft PVG Burgenlandkreis mbH</td>
+                    <td>2026-03-12</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/173450-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/171373-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – BSBG und BSVG - Nachfolge ERP- und HCM-System - Los 2: HCM-System</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Braunschweig Beteiligungen GmbH</td>
+                    <td>2026-03-12</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/171373-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+                <tr data-source="TED Europa">
+                    <td><span class="source-tag">TED Europa</span></td>
+                    <td>
+                        <a href="https://ted.europa.eu/de/notice/-/detail/172303-2026" target="_blank" rel="noopener">Deutschland – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – MVB4HANA: Umsetzung der SAP Transfomation</a>
+                        <span class="badge-neu">NEU</span>
+                    </td>
+                    <td class="hide-mobile">Magdeburger Verkehrsbetriebe GmbH &amp; Co. KG</td>
+                    <td>2026-03-12</td>
+                    <td class="hide-mobile">–</td>
+                    <td>
+                        
+                        <a class="link-btn" href="https://ted.europa.eu/de/notice/-/detail/172303-2026" target="_blank" rel="noopener">Öffnen</a>
+                        
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
         
     </div>
 
