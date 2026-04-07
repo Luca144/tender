@@ -155,3 +155,74 @@ def test_sorting(tmp_path):
     pos_new = html.index("Neue Ausschreibung")
     pos_old = html.index("Alte Ausschreibung")
     assert pos_new < pos_old
+
+
+def test_relevance_scoring_in_pipeline(tmp_path):
+    """Full pipeline produces HTML with relevance scores."""
+    docs_dir = str(tmp_path / "docs")
+    os.makedirs(docs_dir, exist_ok=True)
+
+    entries = [
+        {
+            "id": "high-score",
+            "title": "SAP Migration Projektmanagement IT-Beratung",
+            "buyer": "Stadtwerke Test",
+            "published": "2024-12-01",
+            "deadline": "–",
+            "url": "https://example.com/1",
+            "source": "TED Europa",
+        },
+        {
+            "id": "low-score",
+            "title": "Kabelverlegung Ortsnetz",
+            "buyer": "Baufirma GmbH",
+            "published": "2024-11-01",
+            "deadline": "–",
+            "url": "https://example.com/2",
+            "source": "tender24.de",
+        },
+    ]
+
+    from src.render import render_page
+    render_page(entries, set(), docs_dir=docs_dir, template_dir=TEMPLATE_DIR)
+
+    html_path = os.path.join(docs_dir, "index.html")
+    with open(html_path, encoding="utf-8") as f:
+        html = f.read()
+
+    # data-score attributes present
+    assert 'data-score="' in html
+    # Relevance column exists
+    assert "Relevanz" in html
+    # High-score entry should have a filled relevance bar
+    assert "relevance-fill" in html
+
+
+def test_search_and_sort_js_present(tmp_path):
+    """Generated HTML contains all required JS functions."""
+    docs_dir = str(tmp_path / "docs")
+    os.makedirs(docs_dir, exist_ok=True)
+
+    entries = [
+        {
+            "id": "js-test",
+            "title": "Test Ausschreibung",
+            "buyer": "Test AG",
+            "published": "2024-12-01",
+            "deadline": "–",
+            "url": "https://example.com/1",
+            "source": "TED Europa",
+        },
+    ]
+
+    from src.render import render_page
+    render_page(entries, set(), docs_dir=docs_dir, template_dir=TEMPLATE_DIR)
+
+    html_path = os.path.join(docs_dir, "index.html")
+    with open(html_path, encoding="utf-8") as f:
+        html = f.read()
+
+    assert "searchTable" in html
+    assert "sortTable" in html
+    assert "applyFilters" in html
+    assert "search-input" in html

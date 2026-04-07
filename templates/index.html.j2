@@ -82,44 +82,110 @@
             color: var(--color-secondary);
         }
 
-        .filters {
+        /* Toolbar */
+        .toolbar {
             padding: 1rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .toolbar-search {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            border: 1px solid var(--color-primary);
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            width: 100%;
+            max-width: 400px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .search-input:focus {
+            box-shadow: 0 0 0 2px rgba(0, 46, 177, 0.2);
+        }
+
+        .search-clear {
+            background: none;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: var(--color-grey);
+            font-family: inherit;
+            display: none;
+        }
+
+        .search-clear.visible {
+            display: inline-block;
+        }
+
+        .toolbar-filters {
             display: flex;
             gap: 0.5rem;
             flex-wrap: wrap;
             align-items: center;
         }
 
-        .filters label {
+        .toolbar-filters label {
             font-size: 0.85rem;
             font-weight: 600;
             color: var(--color-grey);
-            margin-right: 0.5rem;
+            margin-right: 0.25rem;
         }
 
-        .filter-btn {
-            padding: 0.4rem 1rem;
+        .toolbar-sort {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-sort label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-grey);
+            margin-right: 0.25rem;
+        }
+
+        .filter-btn, .sort-btn {
+            padding: 0.35rem 0.85rem;
             border: 1px solid var(--color-primary);
             background: var(--color-white);
             color: var(--color-primary);
             border-radius: 4px;
             cursor: pointer;
             font-family: inherit;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 500;
             transition: background 0.15s, color 0.15s;
         }
 
-        .filter-btn:hover {
+        .filter-btn:hover, .sort-btn:hover {
             background: var(--color-primary);
             color: var(--color-white);
         }
 
-        .filter-btn.active {
+        .filter-btn.active, .sort-btn.active {
             background: var(--color-primary);
             color: var(--color-white);
         }
 
+        .visible-count {
+            color: var(--color-grey);
+            font-size: 0.85rem;
+            margin-left: auto;
+        }
+
+        /* Table */
         .table-wrapper {
             overflow-x: auto;
             padding: 0 2rem 2rem;
@@ -163,6 +229,18 @@
             vertical-align: middle;
         }
 
+        .badge-relevant {
+            display: none;
+            background: var(--color-secondary);
+            color: var(--color-white);
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+            margin-left: 0.3rem;
+            vertical-align: middle;
+        }
+
         .source-tag {
             display: inline-block;
             font-size: 0.8rem;
@@ -193,6 +271,55 @@
         .link-btn:hover {
             opacity: 0.9;
             text-decoration: none;
+        }
+
+        /* Relevance */
+        .relevance-cell {
+            min-width: 120px;
+        }
+
+        .relevance-bar {
+            display: inline-block;
+            width: 50px;
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            vertical-align: middle;
+            margin-right: 0.3rem;
+        }
+
+        .relevance-fill {
+            display: block;
+            height: 100%;
+            border-radius: 3px;
+            background: var(--color-secondary);
+        }
+
+        .relevance-high .relevance-fill {
+            background: var(--color-accent-green);
+        }
+
+        .relevance-score {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            vertical-align: middle;
+        }
+
+        .relevance-zero {
+            color: var(--color-grey);
+            opacity: 0.5;
+        }
+
+        .relevance-tags {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--color-grey);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 160px;
+            margin-top: 0.15rem;
         }
 
         .footer {
@@ -226,8 +353,12 @@
                 gap: 1rem;
             }
 
-            .filters {
+            .toolbar {
                 padding: 0.75rem 1rem;
+            }
+
+            .search-input {
+                max-width: 100%;
             }
 
             .table-wrapper {
@@ -241,6 +372,10 @@
 
             .hide-mobile {
                 display: none;
+            }
+
+            .badge-relevant {
+                display: inline-block;
             }
         }
     </style>
@@ -263,12 +398,26 @@
         </div>
     </div>
 
-    <div class="filters">
-        <label>Quellen:</label>
-        <button class="filter-btn active" data-source="all" onclick="filterSource('all')">Alle</button>
-        {% for source in sources %}
-        <button class="filter-btn" data-source="{{ source }}" onclick="filterSource('{{ source }}')">{{ source }}</button>
-        {% endfor %}
+    <div class="toolbar">
+        <div class="toolbar-search">
+            <input type="text" class="search-input" placeholder="Suche in Titel, Auftraggeber..." aria-label="Suche">
+            <button class="search-clear" title="Suche leeren">&#x2715;</button>
+        </div>
+
+        <div class="toolbar-filters">
+            <label>Quellen:</label>
+            <button class="filter-btn active" data-source="all">Alle</button>
+            {% for source in sources %}
+            <button class="filter-btn" data-source="{{ source }}">{{ source }}</button>
+            {% endfor %}
+        </div>
+
+        <div class="toolbar-sort">
+            <label>Sortierung:</label>
+            <button class="sort-btn active" data-sort="date">Datum <span class="sort-arrow">&#x25BC;</span></button>
+            <button class="sort-btn" data-sort="relevance">Relevanz <span class="sort-arrow">&#x25BC;</span></button>
+            <span class="visible-count">Zeige: {{ total_count }} von {{ total_count }}</span>
+        </div>
     </div>
 
     <div class="table-wrapper">
@@ -278,19 +427,36 @@
                 <tr>
                     <th>Quelle</th>
                     <th>Titel</th>
+                    <th class="hide-mobile">Relevanz</th>
                     <th class="hide-mobile">Auftraggeber</th>
-                    <th>Veröffentlicht</th>
+                    <th>Datum</th>
                     <th class="hide-mobile">Frist</th>
                     <th>Link</th>
                 </tr>
             </thead>
             <tbody>
                 {% for entry in all_entries %}
-                <tr data-source="{{ entry.source }}">
+                <tr data-source="{{ entry.source }}" data-score="{{ entry.relevance_score }}" data-published="{{ entry.published_iso }}">
                     <td><span class="source-tag">{{ entry.source }}</span></td>
                     <td>
                         <a href="{{ entry.url }}" target="_blank" rel="noopener">{{ entry.title }}</a>
                         {% if entry.id in new_ids %}<span class="badge-neu">NEU</span>{% endif %}
+                        {% if entry.relevance_score >= 50 %}<span class="badge-relevant">{{ entry.relevance_score }}%</span>{% endif %}
+                    </td>
+                    <td class="hide-mobile relevance-cell">
+                        {% if entry.relevance_score > 0 %}
+                        <span class="relevance-bar{% if entry.relevance_score >= 60 %} relevance-high{% endif %}">
+                            <span class="relevance-fill" style="width: {{ entry.relevance_score }}%"></span>
+                        </span>
+                        <span class="relevance-score">{{ entry.relevance_score }}</span>
+                        {% if entry.matched_roles %}
+                        <span class="relevance-tags" title="{{ entry.matched_roles | join(', ') }}">
+                            {{ entry.matched_roles[:2] | join(', ') }}{% if entry.matched_roles | length > 2 %} +{{ entry.matched_roles | length - 2 }}{% endif %}
+                        </span>
+                        {% endif %}
+                        {% else %}
+                        <span class="relevance-score relevance-zero">–</span>
+                        {% endif %}
                     </td>
                     <td class="hide-mobile">{{ entry.buyer }}</td>
                     <td>{{ entry.published }}</td>
@@ -318,23 +484,129 @@
     </footer>
 
     <script>
+        var TenderScout = {
+            activeSource: 'all',
+            activeSort: 'date',
+            sortDirection: 'desc',
+            searchTerm: ''
+        };
+
+        function applyFilters() {
+            var rows = document.querySelectorAll('tbody tr');
+            var visibleCount = 0;
+            for (var j = 0; j < rows.length; j++) {
+                var row = rows[j];
+                var source = row.getAttribute('data-source');
+                var text = row.textContent.toLowerCase();
+
+                var sourceMatch = (TenderScout.activeSource === 'all' ||
+                                  source === TenderScout.activeSource);
+                var searchMatch = (!TenderScout.searchTerm ||
+                                  text.indexOf(TenderScout.searchTerm) !== -1);
+
+                if (sourceMatch && searchMatch) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+            var countEl = document.querySelector('.visible-count');
+            if (countEl) {
+                countEl.textContent = 'Zeige: ' + visibleCount + ' von ' + rows.length;
+            }
+        }
+
+        function searchTable(term) {
+            TenderScout.searchTerm = term.toLowerCase().trim();
+            applyFilters();
+            var clearBtn = document.querySelector('.search-clear');
+            if (clearBtn) {
+                clearBtn.classList.toggle('visible', term.length > 0);
+            }
+        }
+
         function filterSource(source) {
+            TenderScout.activeSource = source;
             var buttons = document.querySelectorAll('.filter-btn');
             for (var i = 0; i < buttons.length; i++) {
-                buttons[i].classList.remove('active');
-                if (buttons[i].getAttribute('data-source') === source) {
-                    buttons[i].classList.add('active');
-                }
+                var isActive = buttons[i].getAttribute('data-source') === source;
+                buttons[i].classList.toggle('active', isActive);
             }
+            applyFilters();
+        }
 
-            var rows = document.querySelectorAll('tbody tr');
-            for (var j = 0; j < rows.length; j++) {
-                if (source === 'all' || rows[j].getAttribute('data-source') === source) {
-                    rows[j].style.display = '';
+        function doSort() {
+            var tbody = document.querySelector('tbody');
+            if (!tbody) return;
+            var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+            rows.sort(function(a, b) {
+                var valA, valB;
+                if (TenderScout.activeSort === 'relevance') {
+                    valA = parseInt(a.getAttribute('data-score') || '0', 10);
+                    valB = parseInt(b.getAttribute('data-score') || '0', 10);
                 } else {
-                    rows[j].style.display = 'none';
+                    valA = a.getAttribute('data-published') || '';
+                    valB = b.getAttribute('data-published') || '';
+                }
+                var cmp = (valA < valB) ? -1 : (valA > valB) ? 1 : 0;
+                return TenderScout.sortDirection === 'desc' ? -cmp : cmp;
+            });
+            for (var i = 0; i < rows.length; i++) {
+                tbody.appendChild(rows[i]);
+            }
+        }
+
+        function sortTable(field) {
+            if (TenderScout.activeSort === field) {
+                TenderScout.sortDirection =
+                    TenderScout.sortDirection === 'desc' ? 'asc' : 'desc';
+            } else {
+                TenderScout.activeSort = field;
+                TenderScout.sortDirection = 'desc';
+            }
+            var sortBtns = document.querySelectorAll('.sort-btn');
+            for (var i = 0; i < sortBtns.length; i++) {
+                var btnField = sortBtns[i].getAttribute('data-sort');
+                sortBtns[i].classList.toggle('active', btnField === field);
+                var arrow = sortBtns[i].querySelector('.sort-arrow');
+                if (arrow && btnField === field) {
+                    arrow.innerHTML = TenderScout.sortDirection === 'desc' ? '&#x25BC;' : '&#x25B2;';
                 }
             }
+            doSort();
+            applyFilters();
+        }
+
+        // Event bindings
+        var searchInput = document.querySelector('.search-input');
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                searchTable(this.value);
+            });
+        }
+
+        var clearBtn = document.querySelector('.search-clear');
+        if (clearBtn) {
+            clearBtn.addEventListener('click', function() {
+                var input = document.querySelector('.search-input');
+                if (input) { input.value = ''; }
+                searchTable('');
+            });
+        }
+
+        var filterBtns = document.querySelectorAll('.filter-btn');
+        for (var i = 0; i < filterBtns.length; i++) {
+            filterBtns[i].addEventListener('click', function() {
+                filterSource(this.getAttribute('data-source'));
+            });
+        }
+
+        var sortBtns = document.querySelectorAll('.sort-btn');
+        for (var i = 0; i < sortBtns.length; i++) {
+            sortBtns[i].addEventListener('click', function() {
+                sortTable(this.getAttribute('data-sort'));
+            });
         }
     </script>
 </body>
