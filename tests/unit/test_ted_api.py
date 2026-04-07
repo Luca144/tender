@@ -11,13 +11,19 @@ MOCK_TED_RESPONSE = {
     "notices": [
         {
             "publication-number": "TED-2024-999",
-            "notice-title": {"de": "IT-Beratung Energie"},
-            "buyer-name": ["Stadtwerke Test GmbH"],
-            "publication-date": "2024-11-15",
-            "deadline-date": "2024-12-15",
-            "notice-url": "https://ted.europa.eu/notice/999",
-            "cpv-code": "72000000",
-            "contract-nature": "services",
+            "notice-title": {"deu": "IT-Beratung Energie"},
+            "buyer-name": {"deu": ["Stadtwerke Test GmbH"]},
+            "publication-date": "2024-11-15+01:00",
+            "deadline-receipt-tender-date-lot": ["2024-12-15+01:00"],
+            "classification-cpv": ["72000000"],
+            "notice-type": "cn-standard",
+            "buyer-country": "DEU",
+            "links": {
+                "html": {
+                    "DEU": "https://ted.europa.eu/de/notice/-/detail/TED-2024-999",
+                    "ENG": "https://ted.europa.eu/en/notice/-/detail/TED-2024-999",
+                }
+            },
         }
     ]
 }

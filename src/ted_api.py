@@ -13,23 +13,23 @@ TED_SEARCH_URL = "https://api.ted.europa.eu/v3/notices/search"
 
 SEARCH_BODY = {
     "query": (
-        "cpv-code IN (72000000, 79410000) "
+        "classification-cpv IN (72000000, 79410000) "
         "AND buyer-country = DEU "
-        "AND legal-basis-directive = 32014L0025"
+        "AND legal-basis = 32014L0025 "
+        "SORT BY publication-date DESC"
     ),
     "fields": [
         "publication-number",
         "notice-title",
         "buyer-name",
         "publication-date",
-        "deadline-date",
-        "notice-url",
-        "cpv-code",
-        "contract-nature",
+        "deadline-receipt-tender-date-lot",
+        "classification-cpv",
+        "notice-type",
+        "buyer-country",
     ],
     "page": 1,
     "limit": 50,
-    "sort": [{"field": "publication-date", "order": "desc"}],
 }
 
 
@@ -37,23 +37,42 @@ def _extract_entry(raw: dict) -> dict:
     """Convert a raw TED API result into our unified entry format."""
     title = raw.get("notice-title", "")
     if isinstance(title, dict):
-        title = title.get("de") or title.get("en") or next(iter(title.values()), "–")
+        title = title.get("deu") or title.get("eng") or next(iter(title.values()), "–")
     if isinstance(title, list):
         title = title[0] if title else "–"
 
     buyer = raw.get("buyer-name", "–")
+    if isinstance(buyer, dict):
+        first_val = buyer.get("deu") or buyer.get("eng") or next(iter(buyer.values()), "–")
+        buyer = first_val
     if isinstance(buyer, list):
         buyer = buyer[0] if buyer else "–"
-    if isinstance(buyer, dict):
-        buyer = buyer.get("de") or buyer.get("en") or next(iter(buyer.values()), "–")
+
+    deadline_raw = raw.get("deadline-receipt-tender-date-lot")
+    if isinstance(deadline_raw, list):
+        deadline = str(deadline_raw[0]) if deadline_raw else "–"
+    elif deadline_raw:
+        deadline = str(deadline_raw)
+    else:
+        deadline = "–"
+
+    # URL from links object (auto-included by API)
+    links = raw.get("links", {})
+    html_links = links.get("html", {})
+    url = html_links.get("DEU") or html_links.get("ENG") or ""
+    if not url:
+        # Fallback: construct from publication number
+        pub_nr = raw.get("publication-number", "")
+        if pub_nr:
+            url = f"https://ted.europa.eu/en/notice/-/detail/{pub_nr}"
 
     return {
         "id": str(raw.get("publication-number", "")),
         "title": str(title),
         "buyer": str(buyer),
-        "published": str(raw.get("publication-date", "–")),
-        "deadline": str(raw.get("deadline-date", "–")) if raw.get("deadline-date") else "–",
-        "url": str(raw.get("notice-url", "")),
+        "published": str(raw.get("publication-date", "–")).split("+")[0],
+        "deadline": deadline.split("+")[0],
+        "url": url,
         "source": "TED Europa",
     }
 
