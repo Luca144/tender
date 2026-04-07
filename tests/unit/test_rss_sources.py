@@ -6,6 +6,7 @@ from src.rss_sources import (
     fetch_bund,
     fetch_tender24,
     fetch_rss_sources,
+    _is_relevant,
     _make_id,
 )
 
@@ -134,6 +135,47 @@ def test_tender24_output_format(mock_get):
     assert len(result) > 0
     required_fields = {"id", "title", "buyer", "published", "deadline", "url", "source"}
     assert required_fields.issubset(result[0].keys())
+
+
+def test_relevance_filter_matches_it():
+    """IT/Software/Energie keywords are detected as relevant."""
+    assert _is_relevant("Software-Entwicklung Netzsteuerung")
+    assert _is_relevant("IT-Beratung für Stadtwerke")
+    assert _is_relevant("Cloud-Migration Rechenzentrum")
+    assert _is_relevant("Energieberatung Smart Grid")
+
+
+def test_relevance_filter_rejects_unrelated():
+    """Unrelated tenders are filtered out."""
+    assert not _is_relevant("Dachinstandsetzung Gymnasium")
+    assert not _is_relevant("Reinigungsdienste Bürogebäude")
+    assert not _is_relevant("Straßenbauarbeiten B27")
+
+
+@patch("src.rss_sources.requests.get")
+def test_tender24_filters_irrelevant(mock_get):
+    """tender24.de results are filtered for relevance."""
+    html_with_mixed = """
+    <html><body><table>
+    <tr class="tableRow clickable-row publicationDetail" data-oid="it-1">
+      <td>07.04.2025</td><td class="tender">Software-Entwicklung</td>
+      <td class="tenderAuthority">Test AG</td><td>Offen</td><td>VgV</td><td>30.04.2025</td>
+    </tr>
+    <tr class="tableRow clickable-row publicationDetail" data-oid="dach-1">
+      <td>07.04.2025</td><td class="tender">Dachreparatur Schule</td>
+      <td class="tenderAuthority">Stadt X</td><td>Offen</td><td>VOB</td><td>30.04.2025</td>
+    </tr>
+    </table></body></html>
+    """
+    mock_resp = MagicMock()
+    mock_resp.status_code = 200
+    mock_resp.text = html_with_mixed
+    mock_resp.raise_for_status.return_value = None
+    mock_get.return_value = mock_resp
+
+    result = fetch_tender24()
+    assert len(result) == 1
+    assert "Software" in result[0]["title"]
 
 
 def test_id_is_consistent():
