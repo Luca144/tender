@@ -96,6 +96,9 @@ def fetch_bund() -> list[dict]:
                 seen_links.add(link)
 
                 title = entry.get("title", "–")
+                if not _is_relevant(title):
+                    continue
+
                 desc = entry.get("description", "")
                 published_raw = entry.get("published") or entry.get("updated") or ""
                 if not published_raw:
