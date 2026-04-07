@@ -1,32 +1,12 @@
-"""Unit tests for tender source connectors (Bund.de RSS, tender24.de scraping)."""
+"""Unit tests for tender24.de energy sector scraper."""
 
 from unittest.mock import patch, MagicMock
 
 from src.rss_sources import (
-    fetch_bund,
     fetch_tender24,
     fetch_rss_sources,
-    _is_relevant,
     _make_id,
 )
-
-
-def _mock_bund_feed():
-    """Create a mock feedparser result for service.bund.de."""
-    entry = MagicMock()
-    entry.get = lambda k, d="": {
-        "title": "IT-Beratung Energiesektor",
-        "link": "https://www.service.bund.de/IMPORTE/Ausschreibungen/12345.html",
-        "published": "Mon, 7 Apr 2025 10:00:00 +0200",
-        "description": (
-            'Vergabestelle: <strong>Stadtwerke Test</strong><br />'
-            'Angebotsfrist: <strong>30.04.2025 12:00</strong>'
-        ),
-    }.get(k, d)
-    feed = MagicMock()
-    feed.entries = [entry]
-    feed.feed.get.return_value = "service.bund.de"
-    return feed
 
 
 MOCK_TENDER24_HTML = """
@@ -35,16 +15,16 @@ MOCK_TENDER24_HTML = """
 <thead><tr><th>Datum</th></tr></thead>
 <tr class="tableRow clickable-row publicationDetail" data-oid="abc-123" data-category="InvitationToTender">
   <td>07.04.2025</td>
-  <td class="tender">Software-Entwicklung Netzsteuerung</td>
-  <td class="tenderAuthority">Max-Planck-Institut</td>
+  <td class="tender">UW Spitziger Berg (EnBW-2026-0022)</td>
+  <td class="tenderAuthority">EnBW Energie Baden-Württemberg AG</td>
   <td class="tenderType">Offenes Verfahren</td>
   <td class="tenderType">VgV</td>
   <td class="tenderDeadline">30.04.2025</td>
 </tr>
 <tr class="tableRow clickable-row publicationDetail" data-oid="def-456" data-category="InvitationToTender">
   <td>06.04.2025</td>
-  <td class="tender">IT-Beratung Energiewende</td>
-  <td class="tenderAuthority">Bundesnetzagentur</td>
+  <td class="tender">IT-Plattform Netzsteuerung</td>
+  <td class="tenderAuthority">EnBW Energie Baden-Württemberg AG</td>
   <td class="tenderType">Offenes Verfahren</td>
   <td class="tenderType">VgV</td>
   <td class="tenderDeadline">28.04.2025</td>
@@ -53,129 +33,100 @@ MOCK_TENDER24_HTML = """
 </body></html>
 """
 
-
-@patch("src.rss_sources.feedparser.parse")
-def test_bund_returns_list(mock_parse):
-    """fetch_bund() returns a list of dicts on success."""
-    mock_parse.return_value = _mock_bund_feed()
-
-    result = fetch_bund()
-    assert isinstance(result, list)
-    assert len(result) == 1
-    assert result[0]["source"] == "Bund.de"
-    assert result[0]["title"] == "IT-Beratung Energiesektor"
+MOCK_EMPTY_HTML = "<html><body><table></table></body></html>"
 
 
-@patch("src.rss_sources.feedparser.parse")
-def test_bund_extracts_buyer_and_deadline(mock_parse):
-    """Buyer and deadline are extracted from RSS description."""
-    mock_parse.return_value = _mock_bund_feed()
-
-    result = fetch_bund()
-    assert result[0]["buyer"] == "Stadtwerke Test"
-    assert result[0]["deadline"] == "30.04.2025 12:00"
-
-
-@patch("src.rss_sources.requests.get")
-def test_tender24_returns_list(mock_get):
-    """fetch_tender24() returns a list of dicts on success."""
-    mock_resp = MagicMock()
-    mock_resp.status_code = 200
-    mock_resp.text = MOCK_TENDER24_HTML
-    mock_resp.raise_for_status.return_value = None
-    mock_get.return_value = mock_resp
+@patch("src.rss_sources._scrape_tender24_search")
+def test_fetch_tender24_returns_list(mock_scrape):
+    """fetch_tender24() returns a list of dicts."""
+    mock_scrape.return_value = [
+        {
+            "id": "abc123",
+            "title": "UW Spitziger Berg",
+            "buyer": "EnBW Energie Baden-Württemberg AG",
+            "published": "07.04.2025",
+            "deadline": "30.04.2025",
+            "url": "https://www.tender24.de/NetServer/Detail?Publication=abc-123",
+            "source": "tender24.de",
+        }
+    ]
 
     result = fetch_tender24()
     assert isinstance(result, list)
-    assert len(result) == 2
+    assert len(result) >= 1
     assert result[0]["source"] == "tender24.de"
-    assert result[0]["title"] == "Software-Entwicklung Netzsteuerung"
-    assert result[0]["buyer"] == "Max-Planck-Institut"
 
 
-@patch("src.rss_sources.feedparser.parse")
-def test_failed_bund_doesnt_crash(mock_parse):
-    """A failed Bund.de feed returns empty list."""
-    mock_parse.side_effect = Exception("Network error")
+@patch("src.rss_sources._scrape_tender24_search")
+def test_fetch_deduplicates_across_searches(mock_scrape):
+    """Same entry from different searches is only included once."""
+    entry = {
+        "id": "same-id",
+        "title": "Test",
+        "buyer": "EnBW",
+        "published": "07.04.2025",
+        "deadline": "–",
+        "url": "https://example.com",
+        "source": "tender24.de",
+    }
+    mock_scrape.return_value = [entry]
 
-    result = fetch_bund()
-    assert result == []
+    result = fetch_tender24()
+    ids = [e["id"] for e in result]
+    assert ids.count("same-id") == 1
 
 
-@patch("src.rss_sources.requests.get")
-def test_failed_tender24_doesnt_crash(mock_get):
-    """A failed tender24.de scrape returns empty list."""
-    mock_get.side_effect = Exception("Network error")
+@patch("src.rss_sources._scrape_tender24_search")
+def test_failed_search_doesnt_crash(mock_scrape):
+    """A failed search returns empty list without crashing others."""
+    mock_scrape.side_effect = Exception("Network error")
 
     result = fetch_tender24()
     assert result == []
 
 
-@patch("src.rss_sources.feedparser.parse")
-def test_bund_output_format(mock_parse):
-    """All required fields are present in Bund.de output."""
-    mock_parse.return_value = _mock_bund_feed()
-
-    result = fetch_bund()
-    assert len(result) > 0
-    required_fields = {"id", "title", "buyer", "published", "deadline", "url", "source"}
-    assert required_fields.issubset(result[0].keys())
-
-
 @patch("src.rss_sources.requests.get")
-def test_tender24_output_format(mock_get):
-    """All required fields are present in tender24.de output."""
+def test_scrape_parses_html_correctly(mock_get):
+    """HTML table rows are parsed into correct entry format."""
     mock_resp = MagicMock()
     mock_resp.status_code = 200
     mock_resp.text = MOCK_TENDER24_HTML
     mock_resp.raise_for_status.return_value = None
     mock_get.return_value = mock_resp
 
-    result = fetch_tender24()
-    assert len(result) > 0
+    from src.rss_sources import _scrape_tender24_search
+    result = _scrape_tender24_search("EnBW")
+
+    assert len(result) == 2
+    assert result[0]["buyer"] == "EnBW Energie Baden-Württemberg AG"
+    assert result[0]["source"] == "tender24.de"
+
     required_fields = {"id", "title", "buyer", "published", "deadline", "url", "source"}
     assert required_fields.issubset(result[0].keys())
 
 
-def test_relevance_filter_matches_it():
-    """IT/Software/Energie keywords are detected as relevant."""
-    assert _is_relevant("Software-Entwicklung Netzsteuerung")
-    assert _is_relevant("IT-Beratung für Stadtwerke")
-    assert _is_relevant("Cloud-Migration Rechenzentrum")
-    assert _is_relevant("Energieberatung Smart Grid")
-
-
-def test_relevance_filter_rejects_unrelated():
-    """Unrelated tenders are filtered out."""
-    assert not _is_relevant("Dachinstandsetzung Gymnasium")
-    assert not _is_relevant("Reinigungsdienste Bürogebäude")
-    assert not _is_relevant("Straßenbauarbeiten B27")
-
-
 @patch("src.rss_sources.requests.get")
-def test_tender24_filters_irrelevant(mock_get):
-    """tender24.de results are filtered for relevance."""
-    html_with_mixed = """
-    <html><body><table>
-    <tr class="tableRow clickable-row publicationDetail" data-oid="it-1">
-      <td>07.04.2025</td><td class="tender">Software-Entwicklung</td>
-      <td class="tenderAuthority">Test AG</td><td>Offen</td><td>VgV</td><td>30.04.2025</td>
-    </tr>
-    <tr class="tableRow clickable-row publicationDetail" data-oid="dach-1">
-      <td>07.04.2025</td><td class="tender">Dachreparatur Schule</td>
-      <td class="tenderAuthority">Stadt X</td><td>Offen</td><td>VOB</td><td>30.04.2025</td>
-    </tr>
-    </table></body></html>
-    """
+def test_scrape_empty_page(mock_get):
+    """Empty search results return empty list."""
     mock_resp = MagicMock()
     mock_resp.status_code = 200
-    mock_resp.text = html_with_mixed
+    mock_resp.text = MOCK_EMPTY_HTML
     mock_resp.raise_for_status.return_value = None
     mock_get.return_value = mock_resp
 
-    result = fetch_tender24()
-    assert len(result) == 1
-    assert "Software" in result[0]["title"]
+    from src.rss_sources import _scrape_tender24_search
+    result = _scrape_tender24_search("NonexistentCompany")
+    assert result == []
+
+
+@patch("src.rss_sources._scrape_tender24_search")
+def test_fetch_rss_sources_calls_tender24(mock_scrape):
+    """fetch_rss_sources delegates to fetch_tender24."""
+    mock_scrape.return_value = []
+
+    result = fetch_rss_sources()
+    assert isinstance(result, list)
+    assert mock_scrape.called
 
 
 def test_id_is_consistent():
