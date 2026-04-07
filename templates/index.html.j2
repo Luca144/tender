@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReqPOOL Ausschreibungs-Scout</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #002EB1;
+            --color-secondary: #19B874;
+            --color-accent-green: #63F185;
+            --color-accent-blue: #1464F4;
+            --color-grey: #556D73;
+            --color-black: #000000;
+            --color-white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--color-black);
+            background: var(--color-white);
+            line-height: 1.5;
+        }
+
+        .header {
+            background: var(--color-primary);
+            color: var(--color-white);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .header .subtitle {
+            font-size: 0.95rem;
+            opacity: 0.85;
+            font-weight: 400;
+        }
+
+        .header .updated {
+            font-size: 0.85rem;
+            opacity: 0.75;
+        }
+
+        .stats {
+            background: #f5f7fa;
+            padding: 1rem 2rem;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 2px solid var(--color-primary);
+        }
+
+        .stat-item {
+            font-size: 0.95rem;
+            color: var(--color-grey);
+        }
+
+        .stat-item strong {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .stat-new strong {
+            color: var(--color-secondary);
+        }
+
+        .filters {
+            padding: 1rem 2rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filters label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-grey);
+            margin-right: 0.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.4rem 1rem;
+            border: 1px solid var(--color-primary);
+            background: var(--color-white);
+            color: var(--color-primary);
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .filter-btn:hover {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .filter-btn.active {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            padding: 0 2rem 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        thead th {
+            background: var(--color-primary);
+            color: var(--color-white);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        tbody td {
+            padding: 0.65rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+
+        tbody tr:hover {
+            background: #f9fafb;
+        }
+
+        .badge-neu {
+            display: inline-block;
+            background: var(--color-secondary);
+            color: var(--color-white);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.15rem 0.5rem;
+            border-radius: 3px;
+            text-transform: uppercase;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .source-tag {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--color-accent-blue);
+        }
+
+        a {
+            color: var(--color-accent-blue);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .link-btn {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--color-accent-blue);
+            color: var(--color-white);
+            border-radius: 3px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .link-btn:hover {
+            opacity: 0.9;
+            text-decoration: none;
+        }
+
+        .footer {
+            background: #f5f7fa;
+            color: var(--color-grey);
+            text-align: center;
+            padding: 1rem 2rem;
+            font-size: 0.8rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--color-grey);
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header h1 {
+                font-size: 1.2rem;
+            }
+
+            .stats {
+                padding: 0.75rem 1rem;
+                gap: 1rem;
+            }
+
+            .filters {
+                padding: 0.75rem 1rem;
+            }
+
+            .table-wrapper {
+                padding: 0 0.5rem 1rem;
+            }
+
+            thead th, tbody td {
+                padding: 0.5rem 0.5rem;
+                font-size: 0.8rem;
+            }
+
+            .hide-mobile {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div>
+            <h1>ReqPOOL Ausschreibungs-Scout</h1>
+            <div class="subtitle">Energie &amp; IT</div>
+        </div>
+        <div class="updated">Aktualisiert: {{ updated_at }}</div>
+    </header>
+
+    <div class="stats">
+        <div class="stat-item">
+            Gesamt <strong>{{ total_count }}</strong> Ausschreibungen
+        </div>
+        <div class="stat-item stat-new">
+            <strong>{{ new_count }}</strong> neu heute
+        </div>
+    </div>
+
+    <div class="filters">
+        <label>Quellen:</label>
+        <button class="filter-btn active" data-source="all" onclick="filterSource('all')">Alle</button>
+        {% for source in sources %}
+        <button class="filter-btn" data-source="{{ source }}" onclick="filterSource('{{ source }}')">{{ source }}</button>
+        {% endfor %}
+    </div>
+
+    <div class="table-wrapper">
+        {% if all_entries %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Quelle</th>
+                    <th>Titel</th>
+                    <th class="hide-mobile">Auftraggeber</th>
+                    <th>Veröffentlicht</th>
+                    <th class="hide-mobile">Frist</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in all_entries %}
+                <tr data-source="{{ entry.source }}">
+                    <td><span class="source-tag">{{ entry.source }}</span></td>
+                    <td>
+                        <a href="{{ entry.url }}" target="_blank" rel="noopener">{{ entry.title }}</a>
+                        {% if entry.id in new_ids %}<span class="badge-neu">NEU</span>{% endif %}
+                    </td>
+                    <td class="hide-mobile">{{ entry.buyer }}</td>
+                    <td>{{ entry.published }}</td>
+                    <td class="hide-mobile">{{ entry.deadline }}</td>
+                    <td>
+                        {% if entry.url %}
+                        <a class="link-btn" href="{{ entry.url }}" target="_blank" rel="noopener">Öffnen</a>
+                        {% else %}
+                        –
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state">
+            <p>Keine Ausschreibungen gefunden.</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <footer class="footer">
+        Automatisch aktualisiert via GitHub Actions &middot; ReqPOOL GmbH
+    </footer>
+
+    <script>
+        function filterSource(source) {
+            var buttons = document.querySelectorAll('.filter-btn');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+                if (buttons[i].getAttribute('data-source') === source) {
+                    buttons[i].classList.add('active');
+                }
+            }
+
+            var rows = document.querySelectorAll('tbody tr');
+            for (var j = 0; j < rows.length; j++) {
+                if (source === 'all' || rows[j].getAttribute('data-source') === source) {
+                    rows[j].style.display = '';
+                } else {
+                    rows[j].style.display = 'none';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
