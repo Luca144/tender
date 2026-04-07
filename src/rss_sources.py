@@ -100,11 +100,12 @@ def _scrape_tender24_search(query: str) -> list[dict]:
         deadline_cell = cells[5] if len(cells) > 5 else None
         deadline = deadline_cell.get_text(strip=True) if deadline_cell else "–"
 
-        oid = row.get("data-oid", "")
+        # Link to search results with title — detail pages require login
+        search_term = requests.utils.quote(title[:80]) if title else ""
         detail_url = (
-            f"https://www.tender24.de/NetServer/PublicationControllerServlet"
-            f"?function=Detail&Publication={oid}"
-        ) if oid else ""
+            f"https://www.tender24.de/NetServer/PublicationSearchControllerServlet"
+            f"?function=Search&Searchkey={search_term}"
+        ) if search_term else ""
 
         entries.append({
             "id": _make_id(detail_url or title),
