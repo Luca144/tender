@@ -351,57 +351,100 @@
         }
 
         .summary-row td {
-            padding: 0.75rem 1rem;
-            background: #f8faff;
-            border-bottom: 2px solid var(--color-primary);
+            padding: 0;
+            border-bottom: none;
         }
 
         .summary-card {
+            margin: 0 0.5rem 0.5rem;
+            border: 1px solid #dde3ed;
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--color-white);
+            box-shadow: 0 2px 8px rgba(0, 46, 177, 0.06);
+        }
+
+        .summary-header {
+            background: var(--color-primary);
+            color: var(--color-white);
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
             display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            max-width: 900px;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .summary-header .ai-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.1rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.65rem;
+        }
+
+        .summary-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0;
         }
 
         .summary-section {
-            flex: 1;
-            min-width: 200px;
-            padding: 0.6rem 0.8rem;
-            border-radius: 4px;
-            background: var(--color-white);
-            border-left: 3px solid var(--color-primary);
+            padding: 0.75rem 1rem;
+            border-right: 1px solid #eef1f6;
         }
 
-        .summary-section.empfehlung {
-            border-left-color: var(--color-secondary);
+        .summary-section:last-child {
+            border-right: none;
         }
 
-        .summary-section.naechster-schritt {
-            border-left-color: var(--color-accent-blue);
+        .summary-icon-label {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            margin-bottom: 0.4rem;
         }
+
+        .summary-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .summary-dot.chance { background: var(--color-primary); }
+        .summary-dot.empfehlung { background: var(--color-secondary); }
+        .summary-dot.schritt { background: var(--color-accent-blue); }
 
         .summary-label {
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.03em;
             color: var(--color-grey);
-            margin-bottom: 0.2rem;
         }
 
         .summary-text {
-            font-size: 0.8rem;
-            color: var(--color-black);
-            line-height: 1.5;
+            font-size: 0.82rem;
+            color: #1a2332;
+            line-height: 1.55;
+        }
+
+        .summary-fit {
+            margin-left: auto;
+            font-size: 0.7rem;
+            opacity: 0.85;
         }
 
         @media (max-width: 768px) {
-            .summary-card {
-                flex-direction: column;
-                gap: 0.5rem;
+            .summary-body {
+                grid-template-columns: 1fr;
             }
             .summary-section {
-                min-width: unset;
+                border-right: none;
+                border-bottom: 1px solid #eef1f6;
+            }
+            .summary-section:last-child {
+                border-bottom: none;
             }
         }
 
@@ -578,24 +621,34 @@
                 <tr class="summary-row" id="summary-{{ loop.index }}" data-source="{{ entry.source }}">
                     <td colspan="7">
                         <div class="summary-card">
-                            {% if entry.summary.chance %}
-                            <div class="summary-section">
-                                <div class="summary-label">Geschaeftschance</div>
-                                <div class="summary-text">{{ entry.summary.chance }}</div>
+                            <div class="summary-header">
+                                <span class="ai-badge">KI</span>
+                                Management Summary
+                                {% if entry.summary.fit_score %}<span class="summary-fit">ReqPOOL Fit: {{ entry.summary.fit_score }}%</span>{% endif %}
                             </div>
-                            {% endif %}
-                            {% if entry.summary.empfehlung %}
-                            <div class="summary-section empfehlung">
-                                <div class="summary-label">ReqPOOL Empfehlung</div>
-                                <div class="summary-text">{{ entry.summary.empfehlung }}</div>
+                            <div class="summary-body">
+                                <div class="summary-section">
+                                    <div class="summary-icon-label">
+                                        <span class="summary-dot chance"></span>
+                                        <span class="summary-label">Chance</span>
+                                    </div>
+                                    <div class="summary-text">{{ entry.summary.chance or '–' }}</div>
+                                </div>
+                                <div class="summary-section">
+                                    <div class="summary-icon-label">
+                                        <span class="summary-dot empfehlung"></span>
+                                        <span class="summary-label">Empfehlung</span>
+                                    </div>
+                                    <div class="summary-text">{{ entry.summary.empfehlung or '–' }}</div>
+                                </div>
+                                <div class="summary-section">
+                                    <div class="summary-icon-label">
+                                        <span class="summary-dot schritt"></span>
+                                        <span class="summary-label">Nächster Schritt</span>
+                                    </div>
+                                    <div class="summary-text">{{ entry.summary.naechster_schritt or '–' }}</div>
+                                </div>
                             </div>
-                            {% endif %}
-                            {% if entry.summary.naechster_schritt %}
-                            <div class="summary-section naechster-schritt">
-                                <div class="summary-label">Naechster Schritt</div>
-                                <div class="summary-text">{{ entry.summary.naechster_schritt }}</div>
-                            </div>
-                            {% endif %}
                         </div>
                     </td>
                 </tr>

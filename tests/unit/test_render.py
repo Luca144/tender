@@ -153,9 +153,9 @@ def test_summary_displayed_in_html(tmp_docs_dir):
         html = f.read()
 
     assert '<button class="summary-toggle"' in html
-    assert "Geschaeftschance" in html
-    assert "ReqPOOL Empfehlung" in html
-    assert "Naechster Schritt" in html
+    assert "Chance" in html
+    assert "Empfehlung" in html
+    assert "Management Summary" in html
     assert "Relevante IT-Beratung" in html
     assert "summary-card" in html
 
