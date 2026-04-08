@@ -322,6 +322,24 @@
             margin-top: 0.15rem;
         }
 
+        .refresh-btn {
+            display: inline-block;
+            margin-left: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            background: var(--color-secondary);
+            color: var(--color-white);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .refresh-btn:hover {
+            opacity: 0.85;
+            text-decoration: none;
+            color: var(--color-white);
+        }
+
         .footer {
             background: #f5f7fa;
             color: var(--color-grey);
@@ -386,7 +404,10 @@
             <h1>ReqPOOL Ausschreibungs-Scout</h1>
             <div class="subtitle">Energie &amp; IT</div>
         </div>
-        <div class="updated">Aktualisiert: {{ updated_at }}</div>
+        <div class="updated">
+            Aktualisiert: {{ updated_at }}
+            <a class="refresh-btn" href="https://github.com/Luca144/tender/actions/workflows/cron.yml" target="_blank" rel="noopener" title="Jetzt aktualisieren via GitHub Actions">&#x21BB; Jetzt aktualisieren</a>
+        </div>
     </header>
 
     <div class="stats">

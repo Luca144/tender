@@ -1,9 +1,16 @@
-name: Tender Scout – Tägliches Update
+name: Tender Scout – Update
 
 on:
   schedule:
     - cron: '0 7 * * 1-5'   # Mo–Fr, 07:00 UTC
   workflow_dispatch:          # Manueller Start jederzeit möglich
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'templates/**'
+      - 'main.py'
+      - 'requirements.txt'
 
 permissions:
   contents: write
