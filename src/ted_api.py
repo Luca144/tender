@@ -11,6 +11,9 @@ logger = logging.getLogger(__name__)
 
 TED_SEARCH_URL = "https://api.ted.europa.eu/v3/notices/search"
 
+# notice-type values that are actual open tenders (not awards/results)
+OPEN_NOTICE_TYPES = {"cn-standard", "cn-social", "cn-desg", "comp-negotiated", "qu-sy"}
+
 SEARCH_BODY = {
     "query": (
         "classification-cpv IN (72000000, 79410000) "
@@ -97,7 +100,15 @@ def fetch_ted() -> list[dict]:
         if isinstance(data, list):
             notices = data
 
-        return [_extract_entry(n) for n in notices]
+        # Filter out contract awards and other non-tender notices
+        entries = []
+        for n in notices:
+            notice_type = n.get("notice-type", "")
+            if notice_type and notice_type not in OPEN_NOTICE_TYPES:
+                logger.debug("Überspringe %s (Typ: %s)", n.get("publication-number", "?"), notice_type)
+                continue
+            entries.append(_extract_entry(n))
+        return entries
 
     except requests.exceptions.Timeout:
         logger.warning("TED API Timeout – returning empty list")

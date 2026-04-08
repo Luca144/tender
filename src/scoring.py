@@ -41,7 +41,7 @@ ROLE_KEYWORDS: dict[str, list[str]] = {
     "IT-Projektmanager": [
         "projektmanagement", "projektleitung", "projektmanager",
         "projektdurchführung", "projektumsetzung", "implementierung",
-        "einführung", "migration", "rollout", "sap",
+        "einführung", "migration", "rollout",
     ],
     "IT-Cost Controller": [
         "it-kosten", "kostenanalyse", "benchmarking", "controlling",
