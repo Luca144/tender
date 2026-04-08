@@ -12,7 +12,7 @@ import time
 logger = logging.getLogger(__name__)
 
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
-MODEL = "claude-haiku-4-20250414"
+MODEL = "claude-haiku-4-5-20251001"
 RELEVANCE_THRESHOLD = 20
 MAX_RETRIES = 2
 RETRY_DELAY = 1.0
