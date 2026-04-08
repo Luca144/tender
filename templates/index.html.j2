@@ -322,6 +322,50 @@
             margin-top: 0.15rem;
         }
 
+        /* Summary */
+        .summary-toggle {
+            background: none;
+            border: 1px solid var(--color-primary);
+            color: var(--color-primary);
+            border-radius: 3px;
+            padding: 0.1rem 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            margin-left: 0.4rem;
+            vertical-align: middle;
+        }
+
+        .summary-toggle:hover {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .summary-row {
+            display: none;
+        }
+
+        .summary-row.visible {
+            display: table-row;
+        }
+
+        .summary-row td {
+            padding: 0.5rem 1rem 0.75rem;
+            background: #f0f4ff;
+            border-bottom: 2px solid var(--color-primary);
+            font-size: 0.85rem;
+            color: var(--color-grey);
+            line-height: 1.6;
+        }
+
+        .summary-icon {
+            display: inline-block;
+            color: var(--color-primary);
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
         .refresh-btn {
             display: inline-block;
             margin-left: 0.75rem;
@@ -463,6 +507,7 @@
                         <a href="{{ entry.url }}" target="_blank" rel="noopener">{{ entry.title }}</a>
                         {% if entry.id in new_ids %}<span class="badge-neu">NEU</span>{% endif %}
                         {% if entry.relevance_score >= 50 %}<span class="badge-relevant">{{ entry.relevance_score }}%</span>{% endif %}
+                        {% if entry.summary %}<button class="summary-toggle" onclick="toggleSummary('summary-{{ loop.index }}')" title="Management Summary anzeigen">KI</button>{% endif %}
                     </td>
                     <td class="hide-mobile relevance-cell">
                         {% if entry.relevance_score > 0 %}
@@ -490,6 +535,14 @@
                         {% endif %}
                     </td>
                 </tr>
+                {% if entry.summary %}
+                <tr class="summary-row" id="summary-{{ loop.index }}" data-source="{{ entry.source }}">
+                    <td colspan="7">
+                        <span class="summary-icon">&#x1F916;</span>
+                        {{ entry.summary }}
+                    </td>
+                </tr>
+                {% endif %}
                 {% endfor %}
             </tbody>
         </table>
@@ -512,8 +565,15 @@
             searchTerm: ''
         };
 
+        function toggleSummary(id) {
+            var row = document.getElementById(id);
+            if (row) {
+                row.classList.toggle('visible');
+            }
+        }
+
         function applyFilters() {
-            var rows = document.querySelectorAll('tbody tr');
+            var rows = document.querySelectorAll('tbody tr:not(.summary-row)');
             var visibleCount = 0;
             for (var j = 0; j < rows.length; j++) {
                 var row = rows[j];
@@ -525,11 +585,19 @@
                 var searchMatch = (!TenderScout.searchTerm ||
                                   text.indexOf(TenderScout.searchTerm) !== -1);
 
-                if (sourceMatch && searchMatch) {
-                    row.style.display = '';
-                    visibleCount++;
-                } else {
-                    row.style.display = 'none';
+                var visible = sourceMatch && searchMatch;
+                row.style.display = visible ? '' : 'none';
+                if (visible) visibleCount++;
+
+                // Hide/show associated summary row
+                var next = row.nextElementSibling;
+                if (next && next.classList.contains('summary-row')) {
+                    if (!visible) {
+                        next.classList.remove('visible');
+                        next.style.display = 'none';
+                    } else {
+                        next.style.display = '';
+                    }
                 }
             }
             var countEl = document.querySelector('.visible-count');
@@ -560,8 +628,8 @@
         function doSort() {
             var tbody = document.querySelector('tbody');
             if (!tbody) return;
-            var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
-            rows.sort(function(a, b) {
+            var mainRows = Array.prototype.slice.call(tbody.querySelectorAll('tr:not(.summary-row)'));
+            mainRows.sort(function(a, b) {
                 var valA, valB;
                 if (TenderScout.activeSort === 'relevance') {
                     valA = parseInt(a.getAttribute('data-score') || '0', 10);
@@ -573,8 +641,17 @@
                 var cmp = (valA < valB) ? -1 : (valA > valB) ? 1 : 0;
                 return TenderScout.sortDirection === 'desc' ? -cmp : cmp;
             });
-            for (var i = 0; i < rows.length; i++) {
-                tbody.appendChild(rows[i]);
+            for (var i = 0; i < mainRows.length; i++) {
+                tbody.appendChild(mainRows[i]);
+                // Re-attach summary row if it exists
+                var toggle = mainRows[i].querySelector('.summary-toggle');
+                if (toggle) {
+                    var match = toggle.getAttribute('onclick').match(/'([^']+)'/);
+                    if (match) {
+                        var summaryRow = document.getElementById(match[1]);
+                        if (summaryRow) tbody.appendChild(summaryRow);
+                    }
+                }
             }
         }
 

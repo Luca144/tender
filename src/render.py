@@ -62,6 +62,7 @@ def render_page(
     new_ids: set[str],
     docs_dir: str | None = None,
     template_dir: str | None = None,
+    summaries: dict[str, str] | None = None,
 ) -> str:
     """Render the index.html page with all entries.
 
@@ -81,6 +82,11 @@ def render_page(
 
     # Score entries for relevance
     score_entries(all_entries)
+
+    # Attach summaries to entries
+    _summaries = summaries or {}
+    for entry in all_entries:
+        entry["summary"] = _summaries.get(entry["id"], "")
 
     # Normalize dates for client-side sorting
     for entry in all_entries:

@@ -1,7 +1,7 @@
 """Deduplication module using SQLite.
 
 Tracks seen tender IDs in data/seen.db to ensure each tender
-is only marked as "new" once.
+is only marked as "new" once. Also stores AI-generated summaries.
 """
 
 import os
@@ -25,10 +25,25 @@ def init_db(db_path: str | None = None) -> None:
                 id TEXT PRIMARY KEY,
                 source TEXT,
                 title TEXT,
-                first_seen TEXT
+                first_seen TEXT,
+                summary TEXT DEFAULT ''
             )
         """)
         conn.commit()
+    finally:
+        conn.close()
+    _migrate_db(db_path)
+
+
+def _migrate_db(db_path: str | None = None) -> None:
+    """Add summary column if it doesn't exist (idempotent)."""
+    conn = _get_connection(db_path)
+    try:
+        cursor = conn.execute("PRAGMA table_info(seen)")
+        columns = {row[1] for row in cursor.fetchall()}
+        if "summary" not in columns:
+            conn.execute("ALTER TABLE seen ADD COLUMN summary TEXT DEFAULT ''")
+            conn.commit()
     finally:
         conn.close()
 
@@ -71,5 +86,34 @@ def get_all_seen_ids(db_path: str | None = None) -> set[str]:
     try:
         cursor = conn.execute("SELECT id FROM seen")
         return {row[0] for row in cursor.fetchall()}
+    finally:
+        conn.close()
+
+
+def get_stored_summaries(db_path: str | None = None) -> dict[str, str]:
+    """Return dict of {id: summary} for all entries with a non-empty summary."""
+    conn = _get_connection(db_path)
+    try:
+        cursor = conn.execute(
+            "SELECT id, summary FROM seen WHERE summary != '' AND summary IS NOT NULL"
+        )
+        return {row[0]: row[1] for row in cursor.fetchall()}
+    finally:
+        conn.close()
+
+
+def save_summaries(summaries: dict[str, str], db_path: str | None = None) -> None:
+    """Update summary column for given entry IDs."""
+    if not summaries:
+        return
+
+    conn = _get_connection(db_path)
+    try:
+        for entry_id, summary in summaries.items():
+            conn.execute(
+                "UPDATE seen SET summary = ? WHERE id = ?",
+                (summary, entry_id),
+            )
+        conn.commit()
     finally:
         conn.close()

@@ -123,3 +123,50 @@ def test_normalize_german_date():
 def test_normalize_dash_fallback():
     """Dash returns epoch fallback for sorting last."""
     assert normalize_date_for_sort("–") == "1970-01-01 00:00"
+
+
+# Summary rendering tests
+
+def test_summary_displayed_in_html(tmp_docs_dir):
+    """Entries with summaries show the KI toggle button and summary text."""
+    entries = [
+        {
+            "id": "sum-1",
+            "title": "IT-Beratung SAP Migration",
+            "buyer": "Stadtwerke Test",
+            "published": "2025-04-01",
+            "deadline": "2025-05-01",
+            "url": "https://example.com/1",
+            "source": "TED Europa",
+        },
+    ]
+    summaries = {"sum-1": "Dies ist ein Test-Management-Summary."}
+    render_page(entries, set(), docs_dir=tmp_docs_dir, template_dir=TEMPLATE_DIR, summaries=summaries)
+
+    with open(os.path.join(tmp_docs_dir, "index.html"), encoding="utf-8") as f:
+        html = f.read()
+
+    assert "summary-toggle" in html
+    assert "Dies ist ein Test-Management-Summary." in html
+    assert "summary-row" in html
+
+
+def test_no_summary_no_toggle(sample_entries, tmp_docs_dir):
+    """Entries without summaries don't show toggle button in table body."""
+    render_page(sample_entries, set(), docs_dir=tmp_docs_dir, template_dir=TEMPLATE_DIR, summaries={})
+
+    with open(os.path.join(tmp_docs_dir, "index.html"), encoding="utf-8") as f:
+        html = f.read()
+
+    assert '<button class="summary-toggle"' not in html
+
+
+def test_render_without_summaries_param(sample_entries, tmp_docs_dir):
+    """render_page() works without summaries parameter (backward compat)."""
+    render_page(sample_entries, set(), docs_dir=tmp_docs_dir, template_dir=TEMPLATE_DIR)
+
+    with open(os.path.join(tmp_docs_dir, "index.html"), encoding="utf-8") as f:
+        html = f.read()
+
+    assert "Ausschreibungs-Scout" in html
+    assert '<button class="summary-toggle"' not in html
