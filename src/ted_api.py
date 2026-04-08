@@ -16,9 +16,12 @@ OPEN_NOTICE_TYPES = {"cn-standard", "cn-social", "cn-desg", "comp-negotiated", "
 
 SEARCH_BODY = {
     "query": (
-        "classification-cpv IN (72000000, 79410000) "
+        "classification-cpv IN ("
+        "72000000, 72200000, 72220000, 72224000, 72240000, "
+        "72260000, 72300000, 72600000, "
+        "79410000, 79411000, 79421000"
+        ") "
         "AND buyer-country = DEU "
-        "AND legal-basis = 32014L0025 "
         "SORT BY publication-date DESC"
     ),
     "fields": [
@@ -32,7 +35,7 @@ SEARCH_BODY = {
         "buyer-country",
     ],
     "page": 1,
-    "limit": 50,
+    "limit": 100,
 }
 
 

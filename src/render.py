@@ -84,7 +84,7 @@ def render_page(
     # Score entries for relevance
     score_entries(all_entries)
 
-    # Attach summaries to entries and update relevance from AI fit_score
+    # Attach summaries to entries and blend AI fit_score with keyword score
     _summaries = summaries or {}
     for entry in all_entries:
         raw_summary = _summaries.get(entry["id"], "")
@@ -92,12 +92,18 @@ def render_page(
             try:
                 parsed = json.loads(raw_summary)
                 entry["summary"] = parsed
-                # Override keyword-based score with AI fit_score
                 ai_score = parsed.get("fit_score", 0)
-                if ai_score > 0:
-                    entry["relevance_score"] = ai_score
+                keyword_score = entry.get("relevance_score", 0)
+                if ai_score > 0 and keyword_score > 0:
+                    # AI can enhance but not create relevance from nothing
+                    entry["relevance_score"] = max(
+                        keyword_score,
+                        int(keyword_score * 0.4 + ai_score * 0.6),
+                    )
+                elif ai_score > 0 and keyword_score == 0:
+                    # AI says relevant but context gate said no — cap low
+                    entry["relevance_score"] = min(15, ai_score)
             except (json.JSONDecodeError, TypeError):
-                # Legacy plain-text summary
                 entry["summary"] = {"chance": raw_summary, "empfehlung": "", "naechster_schritt": "", "fit_score": 0}
         else:
             entry["summary"] = None

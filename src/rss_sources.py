@@ -67,6 +67,30 @@ ENERGY_BUYERS = [
     "WEMAG",
     "Pfalzwerke",
     "Thüga",
+    # Erweitert: weitere große Versorger & Netzgesellschaften
+    "Innogy",
+    "Hansewerk",
+    "E.ON Energie Deutschland",
+    "EWE NETZ",
+    "Netze Magdeburg",
+    "SWK",              # Stadtwerke Krefeld
+    "swb",              # Stadtwerke Bremen
+    "HEAG",             # Darmstadt
+    "EAM",              # EAM Netz Hessen
+    "Stadtwerke Essen",
+    "Stadtwerke Bochum",
+    "Stadtwerke Dortmund",
+    "DEW21",
+    "Stadtwerke Bielefeld",
+    "Stadtwerke Augsburg",
+    "Stadtwerke Nürnberg",
+    "Stadtwerke Karlsruhe",
+    "Stadtwerke Bonn",
+    "SWB Energie und Wasser",
+    "Netze ODR",
+    "Syna",
+    "Süwag",
+    "ovag Netz",
 ]
 
 

@@ -179,3 +179,25 @@ def test_render_without_summaries_param(sample_entries, tmp_docs_dir):
 
     assert "Ausschreibungs-Scout" in html
     assert '<button class="summary-toggle"' not in html
+
+
+def test_ai_score_cannot_inflate_zero(tmp_docs_dir):
+    """AI fit_score 75 with keyword_score 0 results in max 15."""
+    import json
+    entries = [{
+        "id": "inflate-test",
+        "title": "Holzbauarbeiten Turnhalle",
+        "buyer": "Gemeinde X",
+        "published": "2025-04-01",
+        "deadline": "–",
+        "url": "https://example.com/1",
+        "source": "TED Europa",
+    }]
+    summaries = {"inflate-test": json.dumps({
+        "chance": "Falsch positiv.",
+        "empfehlung": "Keine.",
+        "naechster_schritt": "Ignorieren.",
+        "fit_score": 75,
+    })}
+    render_page(entries, set(), docs_dir=tmp_docs_dir, template_dir=TEMPLATE_DIR, summaries=summaries)
+    assert entries[0]["relevance_score"] <= 15
