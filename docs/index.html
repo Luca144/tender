@@ -351,19 +351,58 @@
         }
 
         .summary-row td {
-            padding: 0.5rem 1rem 0.75rem;
-            background: #f0f4ff;
+            padding: 0.75rem 1rem;
+            background: #f8faff;
             border-bottom: 2px solid var(--color-primary);
-            font-size: 0.85rem;
-            color: var(--color-grey);
-            line-height: 1.6;
         }
 
-        .summary-icon {
-            display: inline-block;
-            color: var(--color-primary);
-            font-weight: 600;
-            margin-right: 0.5rem;
+        .summary-card {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            max-width: 900px;
+        }
+
+        .summary-section {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.6rem 0.8rem;
+            border-radius: 4px;
+            background: var(--color-white);
+            border-left: 3px solid var(--color-primary);
+        }
+
+        .summary-section.empfehlung {
+            border-left-color: var(--color-secondary);
+        }
+
+        .summary-section.naechster-schritt {
+            border-left-color: var(--color-accent-blue);
+        }
+
+        .summary-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-grey);
+            margin-bottom: 0.2rem;
+        }
+
+        .summary-text {
+            font-size: 0.8rem;
+            color: var(--color-black);
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .summary-card {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .summary-section {
+                min-width: unset;
+            }
         }
 
         .refresh-btn {
@@ -449,7 +488,7 @@
             <div class="subtitle">Energie &amp; IT</div>
         </div>
         <div class="updated">
-            Aktualisiert: 08.04.2026 12:21 Uhr
+            Aktualisiert: 08.04.2026 12:38 Uhr
             <a class="refresh-btn" href="https://github.com/Luca144/tender/actions/workflows/cron.yml" target="_blank" rel="noopener" title="Jetzt aktualisieren via GitHub Actions">&#x21BB; Jetzt aktualisieren</a>
         </div>
     </header>
@@ -536,8 +575,16 @@
                 
                 <tr class="summary-row" id="summary-1" data-source="TED Europa">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Der Auftraggeber Hamburger Energienetze GmbH sucht eine umfassende Unternehmensanalyse mit Stellenbewertung, IST-Analyse und Soll-Konzeption – ein klassisches Organisationsentwicklungsprojekt, das für ReqPOOL als stabiler Beratungsauftrag im Energiesektor mit hohem Volumen relevant ist. Wir sollten neben dem erkannten Business-Analyst gezielt einen Prozessmanager und einen IT-Strategen anbieten, um sowohl die organisatorische Durchleuchtung als auch die strategische Neuausrichtung abzudecken. Als nächsten Schritt empfehle ich, sofort mit dem Auftraggeber Kontakt aufzunehmen, um Detailin
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Der Auftraggeber Hamburger Energienetze GmbH sucht eine umfassende Unternehmensanalyse mit Stellenbewertung, IST-Analyse und Soll-Konzeption – ein klassisches Organisationsentwicklungsprojekt, das für ReqPOOL als stabiler Beratungsauftrag im Energiesektor mit hohem Volumen relevant ist. Wir sollten neben dem erkannten Business-Analyst gezielt einen Prozessmanager und einen IT-Strategen anbieten, um sowohl die organisatorische Durchleuchtung als auch die strategische Neuausrichtung abzudecken. Als nächsten Schritt empfehle ich, sofort mit dem Auftraggeber Kontakt aufzunehmen, um Detailin</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
@@ -575,8 +622,16 @@
                 
                 <tr class="summary-row" id="summary-2" data-source="tender24.de">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Der Auftraggeber Drees &amp; Sommer SE sucht für das Projekt Groß Ebbenkamp Kiel im Rahmen eines wettbewerblichen Dialogs Unterstützung bei der Vergabevorbereitung und Projektsteuerung im Bereich Holzbauarbeiten – eine Leistung, die für ReqPOOL jedoch nicht im Kernkompetenzbereich liegt, da es sich um klassisches Bauprojektmanagement und nicht um Software-/IT-Projekte handelt. Wir sollten diese Ausschreibung nicht weiterverfolgen, da unsere Expertise auf IT-Projektmanagement, Anforderungsmanagement und digitale Transformation fokussiert ist und das vorliegende Projekt außerhalb dieser Fokussierung liegt. Als nächster Sch
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Der Auftraggeber Drees &amp; Sommer SE sucht für das Projekt Groß Ebbenkamp Kiel im Rahmen eines wettbewerblichen Dialogs Unterstützung bei der Vergabevorbereitung und Projektsteuerung im Bereich Holzbauarbeiten – eine Leistung, die für ReqPOOL jedoch nicht im Kernkompetenzbereich liegt, da es sich um klassisches Bauprojektmanagement und nicht um Software-/IT-Projekte handelt. Wir sollten diese Ausschreibung nicht weiterverfolgen, da unsere Expertise auf IT-Projektmanagement, Anforderungsmanagement und digitale Transformation fokussiert ist und das vorliegende Projekt außerhalb dieser Fokussierung liegt. Als nächster Sch</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
@@ -638,8 +693,16 @@
                 
                 <tr class="summary-row" id="summary-4" data-source="tender24.de">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Der Auftraggeber Drees &amp; Sommer SE sucht für das Bauprojekt Feuerwehrgerätehaus Gettorf mit technischer Gebäudeausrüstung und Brandschutz einen IT-Projektmanager – eine klassische Bauprojekt-Management-Position, die jedoch außerhalb unseres Software-Projekt-Portfolios liegt und daher keine strategische Relevanz für ReqPOOL bietet. Wir sollten diese Ausschreibung nicht verfolgen, da unsere Kernkompetenz in der Beratung von IT- und Software-Projekten liegt und nicht in der Bauplanung oder technischen Gebäudeausrüstung. Als nächster Schritt empfehle ich, diese Gelegenheit zu archivieren und den
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Der Auftraggeber Drees &amp; Sommer SE sucht für das Bauprojekt Feuerwehrgerätehaus Gettorf mit technischer Gebäudeausrüstung und Brandschutz einen IT-Projektmanager – eine klassische Bauprojekt-Management-Position, die jedoch außerhalb unseres Software-Projekt-Portfolios liegt und daher keine strategische Relevanz für ReqPOOL bietet. Wir sollten diese Ausschreibung nicht verfolgen, da unsere Kernkompetenz in der Beratung von IT- und Software-Projekten liegt und nicht in der Bauplanung oder technischen Gebäudeausrüstung. Als nächster Schritt empfehle ich, diese Gelegenheit zu archivieren und den</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
@@ -725,8 +788,16 @@
                 
                 <tr class="summary-row" id="summary-7" data-source="TED Europa">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Dortmunder Netz GmbH sucht Beratungsleistungen zur strategischen Beschaffung und benötigt damit Fachkompetenz in der Optimierung von Beschaffungsprozessen und Lieferantenmanagement – ein Bereich, in dem ReqPOOL durch strukturierte Beratung und Prozessoptimierung für größere Infrastrukturprojekte signifikant Mehrwert bieten kann. Wir empfehlen, primär einen IT-Einkauf-Spezialisten mit ergänzender Unterstützung durch einen Prozessmanager anzubieten, um sowohl die taktische Einkaufsberatung als auch die Prozessgestaltung abzudecken. Als nächster Schritt sollten wir unmittelbar
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Dortmunder Netz GmbH sucht Beratungsleistungen zur strategischen Beschaffung und benötigt damit Fachkompetenz in der Optimierung von Beschaffungsprozessen und Lieferantenmanagement – ein Bereich, in dem ReqPOOL durch strukturierte Beratung und Prozessoptimierung für größere Infrastrukturprojekte signifikant Mehrwert bieten kann. Wir empfehlen, primär einen IT-Einkauf-Spezialisten mit ergänzender Unterstützung durch einen Prozessmanager anzubieten, um sowohl die taktische Einkaufsberatung als auch die Prozessgestaltung abzudecken. Als nächster Schritt sollten wir unmittelbar</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
@@ -840,8 +911,16 @@
                 
                 <tr class="summary-row" id="summary-11" data-source="TED Europa">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Ein großer Energieversorgungskonzern sucht umfassende Entwicklungsunterstützung für eine unternehmenskritische Datenplattform mit KI- und Machine-Learning-Komponenten – eine hochgradig spezialisierte Aufgabe, die perfekt zur ReqPOOL-Expertise passt und mittelfristig beträchtliches Umsatzpotenzial bietet. Neben dem erkannten IT-Architekten sollten wir zusätzlich einen Requirements Engineer und einen Business-Analyst anbieten, um bereits in der Anforderungsphase die technische Machbarkeit mit den Geschäftszielen abzustimmen und Missverständnisse zu minimieren. Wir sollten unmittelbar Kontakt mit N-ERGIE aufnehmen
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Ein großer Energieversorgungskonzern sucht umfassende Entwicklungsunterstützung für eine unternehmenskritische Datenplattform mit KI- und Machine-Learning-Komponenten – eine hochgradig spezialisierte Aufgabe, die perfekt zur ReqPOOL-Expertise passt und mittelfristig beträchtliches Umsatzpotenzial bietet. Neben dem erkannten IT-Architekten sollten wir zusätzlich einen Requirements Engineer und einen Business-Analyst anbieten, um bereits in der Anforderungsphase die technische Machbarkeit mit den Geschäftszielen abzustimmen und Missverständnisse zu minimieren. Wir sollten unmittelbar Kontakt mit N-ERGIE aufnehmen</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
@@ -907,8 +986,16 @@
                 
                 <tr class="summary-row" id="summary-13" data-source="tender24.de">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Das Max-Planck-Institut für Chemische Energiekonversion sucht Unterstützung bei der Beschaffung eines Massenspektrometers und benötigt spezialisierte Expertise im IT-Einkauf, um ein technisch anspruchsvolles Beschaffungsprojekt strukturiert durchzuführen – eine Chance, ReqPOOL als zuverlässiger Partner für komplexe wissenschaftliche Großprojekte zu positionieren. Wir empfehlen, neben dem IT-Einkauf auch einen IT-Projektmanager anzubieten, um Beschaffungsprozess, Lieferant-Management und technische Abnahme ganzheitlich zu begleiten und Risiken zu minimieren. Der nächste Schritt sollte sein, umgehend Kont
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Das Max-Planck-Institut für Chemische Energiekonversion sucht Unterstützung bei der Beschaffung eines Massenspektrometers und benötigt spezialisierte Expertise im IT-Einkauf, um ein technisch anspruchsvolles Beschaffungsprojekt strukturiert durchzuführen – eine Chance, ReqPOOL als zuverlässiger Partner für komplexe wissenschaftliche Großprojekte zu positionieren. Wir empfehlen, neben dem IT-Einkauf auch einen IT-Projektmanager anzubieten, um Beschaffungsprozess, Lieferant-Management und technische Abnahme ganzheitlich zu begleiten und Risiken zu minimieren. Der nächste Schritt sollte sein, umgehend Kont</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
@@ -946,8 +1033,16 @@
                 
                 <tr class="summary-row" id="summary-14" data-source="tender24.de">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Die Stadt Coburg beschafft einen Mannschaftstransportwagen mit Vorwarneinrichtung für die Freiwillige Feuerwehr – eine klassische technische Beschaffung im öffentlichen Sektor, bei der ReqPOOL durch spezialisierte IT-Einkauf-Unterstützung bei der Anforderungsspezifikation, Lieferantenevaluierung und Vertragsgestaltung Mehrwert bieten kann. Wir empfehlen, unsere IT-Einkauf-Rolle anzubieten, ggf. ergänzt durch einen Requirements Engineer zur Unterstützung bei der präzisen Definition der Fahrzeug- und Ausrüstungsanforderungen sowie Integration in bestehende Feuerwehr-IT-Systeme. Näch
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Die Stadt Coburg beschafft einen Mannschaftstransportwagen mit Vorwarneinrichtung für die Freiwillige Feuerwehr – eine klassische technische Beschaffung im öffentlichen Sektor, bei der ReqPOOL durch spezialisierte IT-Einkauf-Unterstützung bei der Anforderungsspezifikation, Lieferantenevaluierung und Vertragsgestaltung Mehrwert bieten kann. Wir empfehlen, unsere IT-Einkauf-Rolle anzubieten, ggf. ergänzt durch einen Requirements Engineer zur Unterstützung bei der präzisen Definition der Fahrzeug- und Ausrüstungsanforderungen sowie Integration in bestehende Feuerwehr-IT-Systeme. Näch</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
@@ -985,8 +1080,16 @@
                 
                 <tr class="summary-row" id="summary-15" data-source="TED Europa">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Der Oldenburgisch-Ostfriesische Wasserverband sucht einen erfahrenen Partner für die Gestaltung einer hochverfügbaren, GPU-unterstützten hyperkonvergenten Infrastruktur auf HPE-Basis – eine technisch anspruchsvolle Rahmenvereinbarung, die kritische Wasserversorgungsprozesse sichern muss und für ReqPOOL als Systemintegrator und Beratungspartner relevant ist. Wir sollten neben dem identifizierten IT-Architekten zusätzlich einen IT-Projektmanager zur Steuerung der Implementierung und einen IT-Einkauf für Lizenz- und Support-Verhandlungen anbieten, um ein vollständiges Lösungspaket bereitzustellen. N
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Der Oldenburgisch-Ostfriesische Wasserverband sucht einen erfahrenen Partner für die Gestaltung einer hochverfügbaren, GPU-unterstützten hyperkonvergenten Infrastruktur auf HPE-Basis – eine technisch anspruchsvolle Rahmenvereinbarung, die kritische Wasserversorgungsprozesse sichern muss und für ReqPOOL als Systemintegrator und Beratungspartner relevant ist. Wir sollten neben dem identifizierten IT-Architekten zusätzlich einen IT-Projektmanager zur Steuerung der Implementierung und einen IT-Einkauf für Lizenz- und Support-Verhandlungen anbieten, um ein vollständiges Lösungspaket bereitzustellen. N</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
@@ -1248,8 +1351,16 @@
                 
                 <tr class="summary-row" id="summary-25" data-source="TED Europa">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Ein großer süddeutscher Energieversorger sucht externe Entwicklungsunterstützung für den Aufbau einer modernen Datenplattform mit KI- und Machine-Learning-Komponenten, wodurch sich für ReqPOOL eine langfristige Geschäftschance in einem strategisch wichtigen Infrastruktursektor eröffnet. Wir sollten neben dem erkannten IT-Architekten auch einen Requirements Engineer und Business-Analyst zur Früherkennung von Anforderungen sowie einen Projektmanager zur Gewährleistung koordinierter Umsetzung anbieten, um ein vollständiges Beratungspaket für diese komplexe Transformation zu schnüren. Der nächste Schritt ist, unmittelbar Kontakt zum Auftraggeber auf
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Ein großer süddeutscher Energieversorger sucht externe Entwicklungsunterstützung für den Aufbau einer modernen Datenplattform mit KI- und Machine-Learning-Komponenten, wodurch sich für ReqPOOL eine langfristige Geschäftschance in einem strategisch wichtigen Infrastruktursektor eröffnet. Wir sollten neben dem erkannten IT-Architekten auch einen Requirements Engineer und Business-Analyst zur Früherkennung von Anforderungen sowie einen Projektmanager zur Gewährleistung koordinierter Umsetzung anbieten, um ein vollständiges Beratungspaket für diese komplexe Transformation zu schnüren. Der nächste Schritt ist, unmittelbar Kontakt zum Auftraggeber auf</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
@@ -1459,8 +1570,16 @@
                 
                 <tr class="summary-row" id="summary-33" data-source="TED Europa">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Ein mittelständischer Energieversorger sucht Unterstützung bei einer komplexen SAP-Transformation von IS-U zu S/4HANA mit paralleler CRM-Ablösung und CX-Einführung – ein strategisches, hochvolumiges Projekt mit mehrjähriger Laufzeit, das perfekt zu ReqPOOL&#39;s Expertise in großen Softwareimplementierungen passt. Wir sollten neben dem bereits erkannten IT-Projektmanager zusätzlich einen Requirements Engineer und einen Business-Analyst anbieten, um die komplexe Anforderungserfassung in den Bereichen Billing, Vertrieb und Customer Experience abzudecken, sowie einen IT-Architekten zur Gestaltung der S/4HANA-Landschaft. Als näch
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Ein mittelständischer Energieversorger sucht Unterstützung bei einer komplexen SAP-Transformation von IS-U zu S/4HANA mit paralleler CRM-Ablösung und CX-Einführung – ein strategisches, hochvolumiges Projekt mit mehrjähriger Laufzeit, das perfekt zu ReqPOOL&#39;s Expertise in großen Softwareimplementierungen passt. Wir sollten neben dem bereits erkannten IT-Projektmanager zusätzlich einen Requirements Engineer und einen Business-Analyst anbieten, um die komplexe Anforderungserfassung in den Bereichen Billing, Vertrieb und Customer Experience abzudecken, sowie einen IT-Architekten zur Gestaltung der S/4HANA-Landschaft. Als näch</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
@@ -1654,8 +1773,16 @@
                 
                 <tr class="summary-row" id="summary-40" data-source="tender24.de">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Bei dieser Ausschreibung handelt es sich um ein reines Bauprojekt für die Tragwerksplanung einer Rettungswache, das außerhalb des IT-Software-Projektgeschäfts von ReqPOOL liegt und daher für unser Portfolio nicht relevant ist. Die erkannte IT-Projektmanager-Rolle ist ein Fehlmatch, da keine Softwareentwicklung, Systemintegration oder digitale Transformation vorgesehen ist, sondern ausschließlich Leistungen aus dem klassischen Hochbau und der Tragwerksplanung gefragt sind. Wir empfehlen, diese Ausschreibung nicht zu verfolgen und unsere Kapazitäten stattdessen auf Software- und IT-Transformationsprojekte zu konzentrieren, in denen unser Be
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Bei dieser Ausschreibung handelt es sich um ein reines Bauprojekt für die Tragwerksplanung einer Rettungswache, das außerhalb des IT-Software-Projektgeschäfts von ReqPOOL liegt und daher für unser Portfolio nicht relevant ist. Die erkannte IT-Projektmanager-Rolle ist ein Fehlmatch, da keine Softwareentwicklung, Systemintegration oder digitale Transformation vorgesehen ist, sondern ausschließlich Leistungen aus dem klassischen Hochbau und der Tragwerksplanung gefragt sind. Wir empfehlen, diese Ausschreibung nicht zu verfolgen und unsere Kapazitäten stattdessen auf Software- und IT-Transformationsprojekte zu konzentrieren, in denen unser Be</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
@@ -1765,8 +1892,16 @@
                 
                 <tr class="summary-row" id="summary-44" data-source="tender24.de">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Der Auftraggeber Drees &amp; Sommer SE Leipzig sucht für die Erweiterung eines Rohbau-Projekts (VE 303) einen IT-Projektmanager zur Steuerung und Überwachung der Projektabläufe, was für ReqPOOL eine etablierte Kernkompetenz mit hohem Akquisitionspotenzial darstellt. Wir empfehlen, neben dem IT-Projektmanager zusätzlich einen PMO-Koordinator anzubieten, um umfassende Projekt-Governance und Reporting-Struktur abzudecken und uns als Komplettlösung zu positionieren. Nächster Schritt: Unterlagen zur genauen Scope-Definition anfordern und bis spätestens 25.04.2
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Der Auftraggeber Drees &amp; Sommer SE Leipzig sucht für die Erweiterung eines Rohbau-Projekts (VE 303) einen IT-Projektmanager zur Steuerung und Überwachung der Projektabläufe, was für ReqPOOL eine etablierte Kernkompetenz mit hohem Akquisitionspotenzial darstellt. Wir empfehlen, neben dem IT-Projektmanager zusätzlich einen PMO-Koordinator anzubieten, um umfassende Projekt-Governance und Reporting-Struktur abzudecken und uns als Komplettlösung zu positionieren. Nächster Schritt: Unterlagen zur genauen Scope-Definition anfordern und bis spätestens 25.04.2</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
@@ -1832,8 +1967,16 @@
                 
                 <tr class="summary-row" id="summary-46" data-source="tender24.de">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Diese Ausschreibung betrifft die Beschaffung von Mannschaftstransportwagen für die Feuerwehr und liegt außerhalb des Kerngeschäfts von ReqPOOL als Management-Beratung für Software-Projekte. Obwohl IT-Einkauf eine relevante Rolle darstellen könnte, handelt es sich hier um eine reine Fahrzeugbeschaffung ohne Software-Projektkomponente, weshalb ReqPOOL keinen strategischen Mehrwert bieten kann. Wir empfehlen, diese Ausschreibung nicht weiter zu verfolgen und unsere Ressourcen auf Software- und IT-Consulting-Projekte zu konzentrieren.
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Diese Ausschreibung betrifft die Beschaffung von Mannschaftstransportwagen für die Feuerwehr und liegt außerhalb des Kerngeschäfts von ReqPOOL als Management-Beratung für Software-Projekte. Obwohl IT-Einkauf eine relevante Rolle darstellen könnte, handelt es sich hier um eine reine Fahrzeugbeschaffung ohne Software-Projektkomponente, weshalb ReqPOOL keinen strategischen Mehrwert bieten kann. Wir empfehlen, diese Ausschreibung nicht weiter zu verfolgen und unsere Ressourcen auf Software- und IT-Consulting-Projekte zu konzentrieren.</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
@@ -2083,8 +2226,16 @@
                 
                 <tr class="summary-row" id="summary-55" data-source="tender24.de">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Die Stadt Coburg sucht Angebote für Fensterarbeiten (Holz-/Aluminium) bei der KiTA-Erweiterung Scheuerfeld, was ein klassisches Baugewerk darstellt und nicht dem Software-Projektportfolio von ReqPOOL entspricht. Daher ist diese Ausschreibung für ReqPOOL nicht relevant und sollte nicht weiterverfolgt werden. Wir sollten diese Anfrage archivieren und uns auf IT- und Management-Projekte konzentrieren, bei denen unsere spezialisierten Rollen (Requirements Engineer, IT-Projektmanager, Business-Analyst, IT-Architekt) einen echten Mehrwert bieten können.
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Die Stadt Coburg sucht Angebote für Fensterarbeiten (Holz-/Aluminium) bei der KiTA-Erweiterung Scheuerfeld, was ein klassisches Baugewerk darstellt und nicht dem Software-Projektportfolio von ReqPOOL entspricht. Daher ist diese Ausschreibung für ReqPOOL nicht relevant und sollte nicht weiterverfolgt werden. Wir sollten diese Anfrage archivieren und uns auf IT- und Management-Projekte konzentrieren, bei denen unsere spezialisierten Rollen (Requirements Engineer, IT-Projektmanager, Business-Analyst, IT-Architekt) einen echten Mehrwert bieten können.</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
@@ -2218,8 +2369,16 @@
                 
                 <tr class="summary-row" id="summary-60" data-source="TED Europa">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Der Flughafen Düsseldorf sucht einen erfahrenen Partner für die Einführung und den Betrieb einer komplexen Dynamic Pricing Software im Parkraumbewirtschaftungssystem – ein kapitalintensives, kundenorientiertes IT-Projekt mit hohem Geschäftswert, das perfekt in ReqPOOL&#39;s Portfolio passt. Wir empfehlen, neben dem erkannten IT-Projektmanager zusätzlich einen Requirements Engineer und IT-Architekten anzubieten, um sowohl die technische Komplexität als auch die Anforderungsklärung dieser innovativen Lösung abzudecken. Als nächster Schritt sollten wir sofort Kontakt zur Flughafen Düsseldorf GmbH aufnehmen,
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Der Flughafen Düsseldorf sucht einen erfahrenen Partner für die Einführung und den Betrieb einer komplexen Dynamic Pricing Software im Parkraumbewirtschaftungssystem – ein kapitalintensives, kundenorientiertes IT-Projekt mit hohem Geschäftswert, das perfekt in ReqPOOL&#39;s Portfolio passt. Wir empfehlen, neben dem erkannten IT-Projektmanager zusätzlich einen Requirements Engineer und IT-Architekten anzubieten, um sowohl die technische Komplexität als auch die Anforderungsklärung dieser innovativen Lösung abzudecken. Als nächster Schritt sollten wir sofort Kontakt zur Flughafen Düsseldorf GmbH aufnehmen,</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
@@ -2257,8 +2416,16 @@
                 
                 <tr class="summary-row" id="summary-61" data-source="tender24.de">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Diese Ausschreibung betrifft die Beschaffung eines Tragkraftspritzenfahrzeugs für die Feuerwehr und liegt außerhalb des Leistungsspektrums von ReqPOOL als Management-Beratung für Software-Projekte. Trotz der erkannten IT-Einkauf-Rolle handelt es sich hier um eine klassische Beschaffung im Bereich Fahrzeugtechnik und Einsatzausrüstung, nicht um ein Softwareprojekt oder ein IT-Projekt, das von unserem Beratungsportfolio abgedeckt wäre. Eine Akquisition dieser Ausschreibung wird nicht empfohlen, da weder die erforderliche fachliche Spezialisierung vorhanden ist noch ein nachhaltiges Geschä
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Diese Ausschreibung betrifft die Beschaffung eines Tragkraftspritzenfahrzeugs für die Feuerwehr und liegt außerhalb des Leistungsspektrums von ReqPOOL als Management-Beratung für Software-Projekte. Trotz der erkannten IT-Einkauf-Rolle handelt es sich hier um eine klassische Beschaffung im Bereich Fahrzeugtechnik und Einsatzausrüstung, nicht um ein Softwareprojekt oder ein IT-Projekt, das von unserem Beratungsportfolio abgedeckt wäre. Eine Akquisition dieser Ausschreibung wird nicht empfohlen, da weder die erforderliche fachliche Spezialisierung vorhanden ist noch ein nachhaltiges Geschä</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
@@ -2476,8 +2643,16 @@
                 
                 <tr class="summary-row" id="summary-69" data-source="tender24.de">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Diese Ausschreibung betrifft Außenputzarbeiten für eine KITA-Erweiterung und fällt vollständig in den Bereich der klassischen Bauausführung, nicht in die IT-Projektabwicklung oder Software-Beratung, auf die ReqPOOL spezialisiert ist. Eine inhaltliche Relevanz für unser Leistungsportfolio besteht nicht, da weder IT-Projektmanagement, Requirements Engineering, Architektur noch andere unsere Kernkompetenzen gefragt sind. Wir sollten diese Ausschreibung nicht weiterverfolgen und unsere Ressourcen auf IT- und Software-getriebene Projekte konzentrieren, wo ReqPOOL echte Wertschöpfung leistet.
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Diese Ausschreibung betrifft Außenputzarbeiten für eine KITA-Erweiterung und fällt vollständig in den Bereich der klassischen Bauausführung, nicht in die IT-Projektabwicklung oder Software-Beratung, auf die ReqPOOL spezialisiert ist. Eine inhaltliche Relevanz für unser Leistungsportfolio besteht nicht, da weder IT-Projektmanagement, Requirements Engineering, Architektur noch andere unsere Kernkompetenzen gefragt sind. Wir sollten diese Ausschreibung nicht weiterverfolgen und unsere Ressourcen auf IT- und Software-getriebene Projekte konzentrieren, wo ReqPOOL echte Wertschöpfung leistet.</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
@@ -2663,8 +2838,16 @@
                 
                 <tr class="summary-row" id="summary-76" data-source="tender24.de">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Diese Ausschreibung betrifft Estricharbeiten bei der Erweiterung einer städtischen Kindertagesstätte und liegt außerhalb des Software- und IT-Projektmanagement-Portfolios von ReqPOOL, da es sich um ein reines Baugewerk handelt. Die erkannte Rolle IT-Einkauf ist in diesem Kontext nicht anwendbar, da keine IT-Beschaffung oder Softwareprojekt-Unterstützung erforderlich ist. Wir sollten diese Ausschreibung nicht verfolgen und unsere Ressourcen auf Anfragen konzentrieren, die tatsächlich Software-Projekte, digitale Transformationen oder IT-Management betreffen. Nächster Schritt: Diese Gelegenheit abhaken und das Screening weiterführen.
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Diese Ausschreibung betrifft Estricharbeiten bei der Erweiterung einer städtischen Kindertagesstätte und liegt außerhalb des Software- und IT-Projektmanagement-Portfolios von ReqPOOL, da es sich um ein reines Baugewerk handelt. Die erkannte Rolle IT-Einkauf ist in diesem Kontext nicht anwendbar, da keine IT-Beschaffung oder Softwareprojekt-Unterstützung erforderlich ist. Wir sollten diese Ausschreibung nicht verfolgen und unsere Ressourcen auf Anfragen konzentrieren, die tatsächlich Software-Projekte, digitale Transformationen oder IT-Management betreffen. Nächster Schritt: Diese Gelegenheit abhaken und das Screening weiterführen.</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
@@ -2702,8 +2885,16 @@
                 
                 <tr class="summary-row" id="summary-77" data-source="tender24.de">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Die Stadt Coburg sucht Angebote für Trockenbauarbeiten bei der Erweiterung einer KITA-Einrichtung – dies ist eine klassische Bauleistungsausschreibung im öffentlichen Sektor und bietet ReqPOOL keine relevante Geschäftschance, da unser Kernkompetenz in Software-Projektmanagement und IT-Consulting liegt. Die erkannte Rolle „IT-Einkauf&#34; ist fehlklassifiziert, da es sich um handwerkliche/Bauarbeiten und nicht um IT-Beschaffung handelt. ReqPOOL sollte diese Ausschreibung nicht weiter bearbeiten und stattdessen die Ressourcen auf IT- und Softwareprojekte konzentrieren.
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Die Stadt Coburg sucht Angebote für Trockenbauarbeiten bei der Erweiterung einer KITA-Einrichtung – dies ist eine klassische Bauleistungsausschreibung im öffentlichen Sektor und bietet ReqPOOL keine relevante Geschäftschance, da unser Kernkompetenz in Software-Projektmanagement und IT-Consulting liegt. Die erkannte Rolle „IT-Einkauf&#34; ist fehlklassifiziert, da es sich um handwerkliche/Bauarbeiten und nicht um IT-Beschaffung handelt. ReqPOOL sollte diese Ausschreibung nicht weiter bearbeiten und stattdessen die Ressourcen auf IT- und Softwareprojekte konzentrieren.</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
@@ -2861,8 +3052,16 @@
                 
                 <tr class="summary-row" id="summary-83" data-source="tender24.de">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Die Stadt Coburg sucht Handwerksleistungen für Innenputz- und Malerarbeiten bei der Kitaerweiterung, was außerhalb von ReqPOOLs Kernkompetenz im Software- und IT-Projektmanagement liegt. Diese Ausschreibung ist für unsere Management-Beratung nicht relevant, da es sich um klassische Bauhandwerk und nicht um Softwareprojekte handelt. Wir empfehlen, diese Gelegenheit nicht zu verfolgen und unsere Ressourcen auf IT-Projekte zu konzentrieren, bei denen wir echten Mehrwert bieten können.
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Die Stadt Coburg sucht Handwerksleistungen für Innenputz- und Malerarbeiten bei der Kitaerweiterung, was außerhalb von ReqPOOLs Kernkompetenz im Software- und IT-Projektmanagement liegt. Diese Ausschreibung ist für unsere Management-Beratung nicht relevant, da es sich um klassische Bauhandwerk und nicht um Softwareprojekte handelt. Wir empfehlen, diese Gelegenheit nicht zu verfolgen und unsere Ressourcen auf IT-Projekte zu konzentrieren, bei denen wir echten Mehrwert bieten können.</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
@@ -3068,8 +3267,16 @@
                 
                 <tr class="summary-row" id="summary-91" data-source="tender24.de">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Diese Ausschreibung betrifft Bauarbeiten (Abbruch, Sanierung, Erweiterung) für eine kommunale Turnhalle und ist daher nicht im Software- oder IT-Projektmanagement-Bereich angesiedelt, weshalb ReqPOOL hier keine fachliche Relevanz hat. Die automatisch erkannte Rolle &#34;IT-Einkauf&#34; ist fehlklassifiziert – es geht um klassische Bauleistungen, nicht um IT-Beschaffung. Wir sollten diese Ausschreibung nicht weiterverfolgen und unser Angebotsspektrum auf IT- und Software-getriebene Projekte konzentrieren.
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Diese Ausschreibung betrifft Bauarbeiten (Abbruch, Sanierung, Erweiterung) für eine kommunale Turnhalle und ist daher nicht im Software- oder IT-Projektmanagement-Bereich angesiedelt, weshalb ReqPOOL hier keine fachliche Relevanz hat. Die automatisch erkannte Rolle &#34;IT-Einkauf&#34; ist fehlklassifiziert – es geht um klassische Bauleistungen, nicht um IT-Beschaffung. Wir sollten diese Ausschreibung nicht weiterverfolgen und unser Angebotsspektrum auf IT- und Software-getriebene Projekte konzentrieren.</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
@@ -3251,8 +3458,16 @@
                 
                 <tr class="summary-row" id="summary-98" data-source="tender24.de">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        Dies ist eine Bauausschreibung für Profilblecheindeckungsarbeiten bei einer KITA-Erweiterung und fällt nicht in das Leistungsspektrum von ReqPOOL als Management-Beratung für Software-Projekte. Die erkannte Rolle &#34;IT-Einkauf&#34; ist hier nicht relevant, da es sich um handwerkliche Bauarbeiten und nicht um IT-Projektmanagement handelt. Wir sollten diese Ausschreibung nicht weiterverfolgen und unsere Ressourcen auf Anfragen im IT- und Softwarebereich konzentrieren.
+                        <div class="summary-card">
+                            
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">Dies ist eine Bauausschreibung für Profilblecheindeckungsarbeiten bei einer KITA-Erweiterung und fällt nicht in das Leistungsspektrum von ReqPOOL als Management-Beratung für Software-Projekte. Die erkannte Rolle &#34;IT-Einkauf&#34; ist hier nicht relevant, da es sich um handwerkliche Bauarbeiten und nicht um IT-Projektmanagement handelt. Wir sollten diese Ausschreibung nicht weiterverfolgen und unsere Ressourcen auf Anfragen im IT- und Softwarebereich konzentrieren.</div>
+                            </div>
+                            
+                            
+                            
+                        </div>
                     </td>
                 </tr>
                 
