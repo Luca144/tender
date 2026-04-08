@@ -351,19 +351,58 @@
         }
 
         .summary-row td {
-            padding: 0.5rem 1rem 0.75rem;
-            background: #f0f4ff;
+            padding: 0.75rem 1rem;
+            background: #f8faff;
             border-bottom: 2px solid var(--color-primary);
-            font-size: 0.85rem;
-            color: var(--color-grey);
-            line-height: 1.6;
         }
 
-        .summary-icon {
-            display: inline-block;
-            color: var(--color-primary);
-            font-weight: 600;
-            margin-right: 0.5rem;
+        .summary-card {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            max-width: 900px;
+        }
+
+        .summary-section {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.6rem 0.8rem;
+            border-radius: 4px;
+            background: var(--color-white);
+            border-left: 3px solid var(--color-primary);
+        }
+
+        .summary-section.empfehlung {
+            border-left-color: var(--color-secondary);
+        }
+
+        .summary-section.naechster-schritt {
+            border-left-color: var(--color-accent-blue);
+        }
+
+        .summary-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-grey);
+            margin-bottom: 0.2rem;
+        }
+
+        .summary-text {
+            font-size: 0.8rem;
+            color: var(--color-black);
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .summary-card {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .summary-section {
+                min-width: unset;
+            }
         }
 
         .refresh-btn {
@@ -538,8 +577,26 @@
                 {% if entry.summary %}
                 <tr class="summary-row" id="summary-{{ loop.index }}" data-source="{{ entry.source }}">
                     <td colspan="7">
-                        <span class="summary-icon">&#x1F916;</span>
-                        {{ entry.summary }}
+                        <div class="summary-card">
+                            {% if entry.summary.chance %}
+                            <div class="summary-section">
+                                <div class="summary-label">Geschaeftschance</div>
+                                <div class="summary-text">{{ entry.summary.chance }}</div>
+                            </div>
+                            {% endif %}
+                            {% if entry.summary.empfehlung %}
+                            <div class="summary-section empfehlung">
+                                <div class="summary-label">ReqPOOL Empfehlung</div>
+                                <div class="summary-text">{{ entry.summary.empfehlung }}</div>
+                            </div>
+                            {% endif %}
+                            {% if entry.summary.naechster_schritt %}
+                            <div class="summary-section naechster-schritt">
+                                <div class="summary-label">Naechster Schritt</div>
+                                <div class="summary-text">{{ entry.summary.naechster_schritt }}</div>
+                            </div>
+                            {% endif %}
+                        </div>
                     </td>
                 </tr>
                 {% endif %}

@@ -140,15 +140,24 @@ def test_summary_displayed_in_html(tmp_docs_dir):
             "source": "TED Europa",
         },
     ]
-    summaries = {"sum-1": "Dies ist ein Test-Management-Summary."}
+    import json
+    summaries = {"sum-1": json.dumps({
+        "chance": "Relevante IT-Beratung fuer Energieversorger.",
+        "empfehlung": "IT-Projektmanager einsetzen.",
+        "naechster_schritt": "Angebot vorbereiten.",
+        "fit_score": 75,
+    }, ensure_ascii=False)}
     render_page(entries, set(), docs_dir=tmp_docs_dir, template_dir=TEMPLATE_DIR, summaries=summaries)
 
     with open(os.path.join(tmp_docs_dir, "index.html"), encoding="utf-8") as f:
         html = f.read()
 
-    assert "summary-toggle" in html
-    assert "Dies ist ein Test-Management-Summary." in html
-    assert "summary-row" in html
+    assert '<button class="summary-toggle"' in html
+    assert "Geschaeftschance" in html
+    assert "ReqPOOL Empfehlung" in html
+    assert "Naechster Schritt" in html
+    assert "Relevante IT-Beratung" in html
+    assert "summary-card" in html
 
 
 def test_no_summary_no_toggle(sample_entries, tmp_docs_dir):

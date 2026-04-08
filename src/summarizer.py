@@ -5,6 +5,7 @@ tender entries. Summaries describe what is being tendered, the buyer,
 and which ReqPOOL consulting role would fit best.
 """
 
+import json
 import logging
 import os
 import time
@@ -20,16 +21,16 @@ BATCH_DELAY = 0.1
 
 SYSTEM_PROMPT = (
     "Du bist ein Senior-Berater bei ReqPOOL, einer Management-Beratung für Software-Projekte. "
-    "Erstelle eine knappe Management Summary auf Deutsch für die Geschäftsführung. "
-    "Struktur (als Fließtext, max. 3 Sätze):\n"
-    "1. Geschäftschance: Was wird gesucht und warum ist das für ReqPOOL relevant?\n"
-    "2. Empfehlung: Welche ReqPOOL-Rolle(n) sollten wir anbieten "
+    "Erstelle eine knappe Management Summary auf Deutsch für die Geschäftsführung.\n"
+    "Antworte ausschließlich als JSON-Objekt mit genau diesen 4 Feldern:\n"
+    '{"chance": "1 Satz: Was wird gesucht und warum ist das für ReqPOOL relevant?",\n'
+    ' "empfehlung": "1 Satz: Welche ReqPOOL-Rolle(n) anbieten? '
     "(IT-Projektmanager, Requirements Engineer, Business-Analyst, IT-Architekt, "
-    "Prozessmanager, Scrum Master, Testmanager, IT-Stratege, PMO-Koordinator, "
-    "IT-Einkauf, Proxy-Product Owner, IT-Cost Controller)?\n"
-    "3. Nächster Schritt: Konkreter Handlungsvorschlag (z.B. 'Angebot vorbereiten', "
-    "'Unterlagen anfordern', 'Kontakt zum Auftraggeber aufnehmen').\n"
-    "Antworte nur mit dem Summary. Kein Markdown, keine Aufzählungszeichen, keine Überschrift."
+    'Prozessmanager, Scrum Master, Testmanager, IT-Stratege, PMO, IT-Einkauf, Proxy-PO, IT-Cost Controller)",\n'
+    ' "naechster_schritt": "1 Satz: Konkreter Handlungsvorschlag",\n'
+    ' "fit_score": 0-100}\n'
+    "fit_score: 0 = kein Fit, 100 = perfekter Fit für ReqPOOL. "
+    "Bewerte realistisch anhand der Ausschreibung."
 )
 
 
@@ -62,10 +63,35 @@ def _build_user_message(entry: dict) -> str:
     )
 
 
+def _parse_summary_json(text: str) -> dict:
+    """Parse the JSON response from Claude into a structured summary dict."""
+    try:
+        # Strip markdown code fences if present
+        cleaned = text.strip()
+        if cleaned.startswith("```"):
+            cleaned = cleaned.split("\n", 1)[1] if "\n" in cleaned else cleaned
+            cleaned = cleaned.rsplit("```", 1)[0]
+        data = json.loads(cleaned)
+        return {
+            "chance": str(data.get("chance", "")),
+            "empfehlung": str(data.get("empfehlung", "")),
+            "naechster_schritt": str(data.get("naechster_schritt", "")),
+            "fit_score": int(data.get("fit_score", 0)),
+        }
+    except (json.JSONDecodeError, ValueError, TypeError):
+        # Fallback: treat entire text as unstructured summary
+        return {
+            "chance": text.strip(),
+            "empfehlung": "",
+            "naechster_schritt": "",
+            "fit_score": 0,
+        }
+
+
 def generate_summary(entry: dict, client) -> str:
     """Generate a management summary for a single entry.
 
-    Returns summary string, or "" on any error.
+    Returns JSON string with structured summary, or "" on any error.
     """
     if client is None:
         return ""
@@ -74,11 +100,13 @@ def generate_summary(entry: dict, client) -> str:
         try:
             message = client.messages.create(
                 model=MODEL,
-                max_tokens=200,
+                max_tokens=300,
                 system=SYSTEM_PROMPT,
                 messages=[{"role": "user", "content": _build_user_message(entry)}],
             )
-            return message.content[0].text.strip()
+            raw = message.content[0].text.strip()
+            parsed = _parse_summary_json(raw)
+            return json.dumps(parsed, ensure_ascii=False)
         except Exception as e:
             logger.warning(
                 "Summary fehlgeschlagen (Versuch %d/%d) für '%s': %s",

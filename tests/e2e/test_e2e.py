@@ -246,7 +246,13 @@ def test_full_pipeline_with_summaries(tmp_path):
         },
     ]
 
-    summaries = {"high-1": "Mock Management Summary fuer Test."}
+    import json
+    summaries = {"high-1": json.dumps({
+        "chance": "Mock Geschaeftschance fuer Test.",
+        "empfehlung": "IT-Projektmanager einsetzen.",
+        "naechster_schritt": "Angebot vorbereiten.",
+        "fit_score": 80,
+    }, ensure_ascii=False)}
 
     from src.render import render_page
     render_page(entries, set(), docs_dir=docs_dir, template_dir=TEMPLATE_DIR, summaries=summaries)
@@ -255,7 +261,8 @@ def test_full_pipeline_with_summaries(tmp_path):
     with open(html_path, encoding="utf-8") as f:
         html = f.read()
 
-    assert "Mock Management Summary" in html
+    assert "Mock Geschaeftschance" in html
+    assert "summary-card" in html
     assert '<button class="summary-toggle"' in html
 
 

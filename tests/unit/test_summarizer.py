@@ -43,16 +43,20 @@ def test_get_client_returns_none_without_key(monkeypatch):
 
 # --- Single summary generation ---
 
-def test_generate_summary_returns_text():
-    """Successful API call returns summary text."""
+def test_generate_summary_returns_json():
+    """Successful API call returns structured JSON summary."""
+    import json
     mock_client = MagicMock()
+    mock_json = '{"chance": "Gute Chance.", "empfehlung": "IT-PM.", "naechster_schritt": "Angebot.", "fit_score": 75}'
     mock_response = MagicMock()
-    mock_response.content = [MagicMock(text="Dies ist ein Test-Summary.")]
+    mock_response.content = [MagicMock(text=mock_json)]
     mock_client.messages.create.return_value = mock_response
 
     entry = {"id": "test-1", "title": "IT-Beratung", "buyer": "EnBW", "matched_roles": []}
     result = generate_summary(entry, mock_client)
-    assert result == "Dies ist ein Test-Summary."
+    parsed = json.loads(result)
+    assert parsed["chance"] == "Gute Chance."
+    assert parsed["fit_score"] == 75
 
 
 def test_generate_summary_returns_empty_on_api_error(monkeypatch):
@@ -75,11 +79,13 @@ def test_generate_summary_returns_empty_when_client_none():
 
 def test_generate_summary_retries_on_failure(monkeypatch):
     """Retries on first failure, succeeds on second attempt."""
+    import json
     monkeypatch.setattr("src.summarizer.RETRY_DELAY", 0)
 
     mock_client = MagicMock()
     mock_success = MagicMock()
-    mock_success.content = [MagicMock(text="Erfolg nach Retry.")]
+    mock_json = '{"chance": "Erfolg.", "empfehlung": "", "naechster_schritt": "", "fit_score": 50}'
+    mock_success.content = [MagicMock(text=mock_json)]
     mock_client.messages.create.side_effect = [
         Exception("Transient error"),
         mock_success,
@@ -87,7 +93,8 @@ def test_generate_summary_retries_on_failure(monkeypatch):
 
     entry = {"id": "test-1", "title": "Test", "buyer": "Test", "matched_roles": []}
     result = generate_summary(entry, mock_client)
-    assert result == "Erfolg nach Retry."
+    parsed = json.loads(result)
+    assert parsed["chance"] == "Erfolg."
     assert mock_client.messages.create.call_count == 2
 
 

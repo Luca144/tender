@@ -5,6 +5,7 @@ using the ReqPOOL CI template. Includes relevance scoring
 and date normalization for client-side sorting.
 """
 
+import json
 import os
 import re
 from datetime import datetime, timezone
@@ -83,10 +84,23 @@ def render_page(
     # Score entries for relevance
     score_entries(all_entries)
 
-    # Attach summaries to entries
+    # Attach summaries to entries and update relevance from AI fit_score
     _summaries = summaries or {}
     for entry in all_entries:
-        entry["summary"] = _summaries.get(entry["id"], "")
+        raw_summary = _summaries.get(entry["id"], "")
+        if raw_summary:
+            try:
+                parsed = json.loads(raw_summary)
+                entry["summary"] = parsed
+                # Override keyword-based score with AI fit_score
+                ai_score = parsed.get("fit_score", 0)
+                if ai_score > 0:
+                    entry["relevance_score"] = ai_score
+            except (json.JSONDecodeError, TypeError):
+                # Legacy plain-text summary
+                entry["summary"] = {"chance": raw_summary, "empfehlung": "", "naechster_schritt": "", "fit_score": 0}
+        else:
+            entry["summary"] = None
 
     # Normalize dates for client-side sorting
     for entry in all_entries:
