@@ -34,7 +34,6 @@ _CONTEXT_KEYWORDS_SIMPLE = [
     # IT procurement
     "vergabebegleitung", "ausschreibungsberatung", "vergabeberatung",
     "ausschreibungsmanagement",
-    "rahmenvertrag", "rahmenvereinbarung",
     # Energy IT specifics
     "marktkommunikation", "redispatch", "netzleitsystem",
     "billing", "abrechnungssystem", "energiedatenmanagement",
