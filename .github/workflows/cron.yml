@@ -2,7 +2,7 @@ name: Tender Scout – Update
 
 on:
   schedule:
-    - cron: '0 7 * * 1-5'   # Mo–Fr, 07:00 UTC
+    - cron: '0 6 * * 1-5'   # Mo–Fr, 06:00 UTC (08:00 deutscher Zeit)
   workflow_dispatch:          # Manueller Start jederzeit möglich
   push:
     branches: [main]
