@@ -156,10 +156,33 @@ _REQPOOL_FIT_KEYWORDS = [
 ]
 
 # ---------------------------------------------------------------------------
-# Tier 4: Energy Sector Bonus — buyer is energy company or energy-IT terms
+# Tier 1b: Sector Gate — buyer must be from a target industry
+# ReqPOOL's target sectors: Energie, Immobilien, Telekommunikation, Rohstoffe
+# If buyer is from an irrelevant sector (Public/Verkehr/Bildung), score = 0
 # ---------------------------------------------------------------------------
 
-_ENERGY_IT_KEYWORDS = [
+# Keywords in buyer name that indicate a target sector
+_SECTOR_BUYER_KEYWORDS = [
+    # Energie
+    "energie", "stadtwerk", "netzbetreib", "netzgesellschaft",
+    "strom", "gas", "fernwärme", "kraftwerk", "windpark",
+    "solar", "photovoltaik", "übertragungsnetz", "verteilnetz",
+    # Immobilien
+    "immobili", "wohnbau", "wohnungsbau", "baugesellschaft",
+    "gebäudemanagement", "facility", "hausverwaltung",
+    "liegenschaft", "wohnungsgesellschaft",
+    # Telekommunikation
+    "telekom", "vodafone", "telefónica", "o2",
+    "glasfaser", "breitband", "mobilfunk", "telekommunikation",
+    "netcologne", "ewe tel", "m-net",
+    # Rohstoffe
+    "rohstoff", "bergbau", "mining", "k+s", "basf",
+    "chemie", "raffinerie",
+]
+
+# Keywords in TITLE that indicate a target sector topic
+_SECTOR_TITLE_KEYWORDS = [
+    # Energie
     "redispatch", "marktkommunikation", "netzleitsystem",
     "billing", "abrechnungssystem", "energiedatenmanagement",
     "smart meter", "intelligentes messsystem",
@@ -168,13 +191,23 @@ _ENERGY_IT_KEYWORDS = [
     "netzbetrieb", "netzsteuerung", "messwesen",
     "energiewirtschaft", "energieversorger",
     "stadtwerke", "netzbetreiber",
+    "stromhandel", "gashandel", "energiehandel",
+    "ladesäule", "ladeinfrastruktur", "elektromobilität",
+    # Immobilien
+    "gebäudeautomation", "gebäudetechnik", "smart building",
+    "facility management", "liegenschafts",
+    # Telekommunikation
+    "telekommunikation", "glasfaserausbau", "breitbandausbau",
+    "5g", "mobilfunk", "netzausbau",
+    # Rohstoffe
+    "rohstoff", "bergbau", "raffinerie",
 ]
 
 # Imported at function level to avoid circular import
 _energy_buyers_cache: list[str] | None = None
 
 
-def _get_energy_buyers() -> list[str]:
+def _get_target_buyers() -> list[str]:
     """Lazy-load ENERGY_BUYERS from rss_sources to avoid circular import."""
     global _energy_buyers_cache
     if _energy_buyers_cache is None:
@@ -183,27 +216,63 @@ def _get_energy_buyers() -> list[str]:
     return _energy_buyers_cache
 
 
+def _is_target_sector(title_lower: str, buyer_lower: str) -> bool:
+    """Check if the tender is from a ReqPOOL target sector.
+
+    Returns True if buyer is a known company, buyer name contains
+    sector keywords, or title contains sector-specific terms.
+    """
+    # Check against known companies list
+    if any(eb.lower() in buyer_lower for eb in _get_target_buyers()):
+        return True
+    # Check buyer name for sector keywords
+    if any(kw in buyer_lower for kw in _SECTOR_BUYER_KEYWORDS):
+        return True
+    # Check title for sector-specific terms
+    if any(kw in title_lower for kw in _SECTOR_TITLE_KEYWORDS):
+        return True
+    return False
+
+
 # ---------------------------------------------------------------------------
 # Scoring functions
 # ---------------------------------------------------------------------------
 
 def score_entry(entry: dict) -> dict:
-    """Score a single entry for ReqPOOL relevance using 4-tier system.
+    """Score a single entry for ReqPOOL relevance.
+
+    Two gates (must pass both):
+      1. Context Gate: Title must contain IT/consulting keywords
+      2. Sector Gate: Buyer must be from a target industry
+
+    Then three scoring tiers:
+      3. Role Matching (max 60)
+      4. ReqPOOL Fit Bonus (max 25)
+      5. Sector Bonus (max 15)
 
     Returns dict with 'score' (0-100), 'matched_roles', 'score_breakdown'.
     """
     title_lower = entry.get("title", "").lower()
-    text = f"{title_lower} {entry.get('buyer', '')}".lower()
+    buyer_lower = entry.get("buyer", "").lower()
+    text = f"{title_lower} {buyer_lower}"
 
-    # Tier 1: Context Gate — only checks TITLE, not buyer name
+    # Gate 1: IT/Consulting Context — title must contain IT terms
     if not _has_context(title_lower):
         return {
             "score": 0,
             "matched_roles": [],
-            "score_breakdown": {"context": False, "role_score": 0, "fit_bonus": 0, "energy_bonus": 0},
+            "score_breakdown": {"context": False, "sector": False},
         }
 
-    # Tier 2: Role Matching
+    # Gate 2: Target Sector — buyer must be from Energie/Immobilien/Telko/Rohstoffe
+    if not _is_target_sector(title_lower, buyer_lower):
+        return {
+            "score": 0,
+            "matched_roles": [],
+            "score_breakdown": {"context": True, "sector": False},
+        }
+
+    # Tier 3: Role Matching
     matched_roles = []
     total_keyword_hits = 0
     for role, keywords in ROLE_KEYWORDS.items():
@@ -214,21 +283,19 @@ def score_entry(entry: dict) -> dict:
 
     role_score = min(60, len(matched_roles) * 12 + total_keyword_hits * 4)
 
-    # Tier 3: ReqPOOL Fit Bonus
+    # Tier 4: ReqPOOL Fit Bonus
     fit_hits = sum(1 for kw in _REQPOOL_FIT_KEYWORDS if kw in text)
     fit_bonus = min(25, fit_hits * 8)
 
-    # Tier 4: Energy Sector Bonus
-    energy_bonus = 0
-    buyer_lower = entry.get("buyer", "").lower()
-    if any(eb.lower() in buyer_lower for eb in _get_energy_buyers()):
-        energy_bonus += 8
-    title_lower = entry.get("title", "").lower()
-    if any(ek in title_lower for ek in _ENERGY_IT_KEYWORDS):
-        energy_bonus += 7
-    energy_bonus = min(15, energy_bonus)
+    # Tier 5: Sector Bonus (known buyer or sector-specific title)
+    sector_bonus = 0
+    if any(eb.lower() in buyer_lower for eb in _get_target_buyers()):
+        sector_bonus += 8
+    if any(kw in title_lower for kw in _SECTOR_TITLE_KEYWORDS):
+        sector_bonus += 7
+    sector_bonus = min(15, sector_bonus)
 
-    raw_score = role_score + fit_bonus + energy_bonus
+    raw_score = role_score + fit_bonus + sector_bonus
     final_score = min(100, raw_score)
 
     return {
@@ -236,9 +303,10 @@ def score_entry(entry: dict) -> dict:
         "matched_roles": matched_roles,
         "score_breakdown": {
             "context": True,
+            "sector": True,
             "role_score": role_score,
             "fit_bonus": fit_bonus,
-            "energy_bonus": energy_bonus,
+            "sector_bonus": sector_bonus,
         },
     }
 
