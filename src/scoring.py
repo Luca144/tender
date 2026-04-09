@@ -20,10 +20,10 @@ _CONTEXT_KEYWORDS_SIMPLE = [
     "software", "ikt", "edv", "sap", "erp", "crm",
     "digitalisierung", "cloud", "saas", "paas", "iaas",
     "cyber", "informationssicherheit",
-    # Consulting domain
-    "beratung", "consulting", "beratungsleistung",
-    "managementberatung", "unternehmensberatung",
-    "gutachten", "studie",
+    # Consulting domain (specific to IT/management, NOT generic "beratung")
+    "it-beratung", "consulting", "managementberatung",
+    "unternehmensberatung", "strategieberatung",
+    "digitalisierungsberatung",
     # Software project lifecycle
     "softwareprojekt", "softwareeinführung", "softwarebeschaffung",
     "softwareauswahl", "systemeinführung", "systemauswahl",
@@ -46,13 +46,17 @@ _CONTEXT_KEYWORDS_SIMPLE = [
 _CONTEXT_KEYWORDS_BOUNDARY = ["it", "bi", "ki", "dms", "ecm"]
 
 
-def _has_context(text: str) -> bool:
-    """Check if text contains at least one IT/consulting context keyword."""
+def _has_context(title: str) -> bool:
+    """Check if TITLE contains at least one IT/consulting context keyword.
+
+    Only checks title, not buyer — 'Projektmanagement' in a company name
+    like 'Drees & Sommer - Projektmanagement' is not IT context.
+    """
     for kw in _CONTEXT_KEYWORDS_SIMPLE:
-        if kw in text:
+        if kw in title:
             return True
     for kw in _CONTEXT_KEYWORDS_BOUNDARY:
-        if re.search(r'\b' + re.escape(kw) + r'\b', text):
+        if re.search(r'\b' + re.escape(kw) + r'\b', title):
             return True
     return False
 
@@ -189,10 +193,11 @@ def score_entry(entry: dict) -> dict:
 
     Returns dict with 'score' (0-100), 'matched_roles', 'score_breakdown'.
     """
-    text = f"{entry.get('title', '')} {entry.get('buyer', '')}".lower()
+    title_lower = entry.get("title", "").lower()
+    text = f"{title_lower} {entry.get('buyer', '')}".lower()
 
-    # Tier 1: Context Gate
-    if not _has_context(text):
+    # Tier 1: Context Gate — only checks TITLE, not buyer name
+    if not _has_context(title_lower):
         return {
             "score": 0,
             "matched_roles": [],
